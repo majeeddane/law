@@ -2,44 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
+import { useLangStore } from "@/stores/language-store";
+import { getTranslations } from "@/lib/translations";
 import {
   Scale,
   Phone,
-  Mail,
   MapPin,
   ArrowUpRight,
-  Linkedin,
-  Twitter,
 } from "lucide-react";
 
-const footerLinks = {
-  "Practice Areas": [
-    "Corporate Governance",
-    "Real Estate Law",
-    "Dispute Resolution",
-    "Sharia-Compliant Advisory",
-    "Commercial Contracts",
-    "Foreign Investment",
-  ],
-  Company: [
-    "About the Firm",
-    "Our Founder",
-    "Client Testimonials",
-    "Legal Insights",
-    "Careers",
-    "Contact Us",
-  ],
-  "Quick Links": [
-    "Book a Consultation",
-    "Schedule a Call",
-    "Request a Proposal",
-    "Download Brochure",
-    "Privacy Policy",
-    "Terms of Service",
-  ],
-};
-
 export function Footer() {
+  const { lang } = useLangStore();
+  const t = getTranslations(lang);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -63,10 +38,10 @@ export function Footer() {
           >
             <div className="text-center lg:text-left max-w-2xl">
               <h3 className="text-2xl sm:text-3xl font-bold">
-                Ready to Protect Your Legal Interests?
+                {t.footer.ctaTitle}
               </h3>
               <p className="mt-3 text-white/60 text-lg">
-                Schedule a confidential consultation with our legal team today.
+                {t.footer.ctaSubtitle}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -74,14 +49,14 @@ export function Footer() {
                 onClick={() => scrollTo("contact")}
                 className="bg-gold text-navy-dark hover:bg-gold-light font-semibold px-8 py-4 rounded-lg shadow-xl shadow-gold/20 transition-all duration-300 hover:scale-[1.02]"
               >
-                Book Consultation
+                {t.footer.ctaBtn}
               </button>
               <a
-                href="tel:+966112345678"
+                href="tel:+966506707007"
                 className="border border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                +966 11 234 5678
+                0506707007
               </a>
             </div>
           </motion.div>
@@ -99,63 +74,91 @@ export function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-wide">
-                  AL-MUSALLAM
+                  {lang === "ar" ? "المسلم" : "AL-MUSALLAM"}
                 </span>
                 <span className="text-xs text-gold/80 font-medium tracking-[0.15em] uppercase">
-                  Law Firm
+                  {lang === "ar" ? "للمحاماة" : "Law Firm"}
                 </span>
               </div>
             </div>
             <p className="text-white/50 leading-relaxed max-w-sm text-sm">
-              Saudi Arabia&apos;s premier legal counsel for corporate governance,
-              commercial litigation, and Sharia-compliant advisory services.
-              Trusted by leading businesses across the Kingdom and GCC region.
+              {t.footer.description}
             </p>
 
             {/* Contact info */}
             <div className="mt-6 space-y-3">
               <a
-                href="tel:+966112345678"
+                href="tel:+966506707007"
                 className="flex items-center gap-3 text-sm text-white/50 hover:text-gold transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                +966 11 234 5678
+                0506707007
               </a>
               <a
-                href="mailto:info@almusallam-law.com"
+                href="mailto:info@mohamalmusallam.com"
                 className="flex items-center gap-3 text-sm text-white/50 hover:text-gold transition-colors"
               >
-                <Mail className="w-4 h-4" />
-                info@almusallam-law.com
+                {lang === "ar" ? (
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 fill-none stroke-current"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 fill-none stroke-current"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                )}
+                info@mohamalmusallam.com
               </a>
               <div className="flex items-start gap-3 text-sm text-white/50">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                Olaya Towers, Tower A, Floor 28
-                <br />
-                King Fahd Road, Riyadh 12241
+                <span>
+                  {t.contact.mapAddress}
+                  <br />
+                  {t.contact.mapAddress2}
+                </span>
               </div>
             </div>
 
             {/* Social links */}
             <div className="mt-6 flex items-center gap-3">
-              {[
-                { icon: Linkedin, label: "LinkedIn" },
-                { icon: Twitter, label: "Twitter" },
-              ].map((social, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-white/5 hover:bg-gold/20 flex items-center justify-center transition-colors group"
+              <a
+                href="https://x.com/mohamalmusallam"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X / Twitter"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-gold/20 flex items-center justify-center transition-colors group"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 fill-current text-white/40 group-hover:text-gold transition-colors"
+                  aria-hidden="true"
                 >
-                  <social.icon className="w-4 h-4 text-white/40 group-hover:text-gold transition-colors" />
-                </a>
-              ))}
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
+          {Object.entries(t.footer.links).map(([title, links]) => (
             <div key={title}>
               <h4 className="font-semibold text-sm tracking-wide mb-5 text-white/80">
                 {title}
@@ -183,21 +186,21 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-white/30">
-            © {new Date().getFullYear()} Mohammed Al-Musallam Law Firm. All
-            rights reserved. Licensed by the Saudi Ministry of Justice.
+            {t.footer.copyright}
           </div>
           <div className="flex items-center gap-6">
-            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
-              (link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="text-xs text-white/30 hover:text-gold transition-colors"
-                >
-                  {link}
-                </a>
-              )
-            )}
+            <a
+              href="#"
+              className="text-xs text-white/30 hover:text-gold transition-colors"
+            >
+              {t.footer.privacy}
+            </a>
+            <a
+              href="#"
+              className="text-xs text-white/30 hover:text-gold transition-colors"
+            >
+              {t.footer.terms}
+            </a>
           </div>
         </div>
       </div>
@@ -206,7 +209,7 @@ export function Footer() {
       <button
         onClick={scrollToTop}
         className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-navy text-white shadow-xl shadow-navy/30 flex items-center justify-center hover:bg-gold hover:text-navy-dark transition-all duration-300 z-40 border border-white/10"
-        aria-label="Back to top"
+        aria-label={lang === "ar" ? "العودة للأعلى" : "Back to top"}
       >
         <svg
           className="w-5 h-5"

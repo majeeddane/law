@@ -30,3 +30,35 @@ Stage Summary:
 - Google Maps integration for Olaya Towers location
 - Professional typography and spacing throughout
 - No lint errors, clean build
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Update website to bilingual Arabic (primary) / English with correct business data
+
+Work Log:
+- Created `/src/stores/language-store.ts` (Zustand) for AR/EN language toggle
+- Created `/src/lib/translations.ts` with comprehensive Arabic/English translations for all 7 sections
+- Created `/src/components/law-firm/LanguageProvider.tsx` for dynamic RTL/LTR switching
+- Updated `globals.css`: removed pattern-overlay, simplified scrollbar, added RTL-aware `.rtl-flip` class
+- Updated `layout.tsx`: switched to Cairo font (Arabic + Latin subsets), Arabic metadata/SEO
+- Rewrote Header.tsx: Arabic nav labels, language toggle (EN/عربي), phone 0506707007, mobile sheet RTL-aware
+- Rewrote HeroSection.tsx: Arabic headline/subtitle, primary CTA "اتصل بنا" → tel:+966506707007, Phone icon
+- Rewrote PracticeAreas.tsx: 6 practice areas with full Arabic descriptions and highlights
+- Rewrote AboutFounder.tsx: Arabic bio, credentials, achievements, minimalist portrait layout
+- Rewrote SuccessStories.tsx: Arabic testimonials and trust metrics
+- Rewrote LegalInsights.tsx: Arabic articles, RTL-aware arrow flipping
+- Rewrote ContactSection.tsx: correct address (Prince Muhammed Ibn Abdulaziz St), correct phone/email, Google Maps embed, working hours (Sun-Thu 9-6, Fri-Sat closed)
+- Rewrote Footer.tsx: X/Twitter link → https://x.com/mohamalmusallam, Arabic footer links, correct phone
+- Updated page.tsx: wrapped with LanguageProvider
+
+Stage Summary:
+- Full bilingual support: Arabic (RTL, default) and English (LTR)
+- Language toggle in header with Languages icon
+- All contact data updated: phone 0506707007, email info@mohamalmusallam.com
+- Correct address: Olaya Towers, Prince Muhammed Ibn Abdulaziz St, Al Olaya, Riyadh 12213
+- Google Maps embed with exact location + direct link to share.google/IO61hJAKHhpS3mT0s
+- X/Twitter icon links to @mohamalmusallam
+- Working hours: Sun-Thu 9:00 AM - 6:00 PM, Fri-Sat Closed
+- Minimalist design approach maintained
+- Zero lint errors, page loads HTTP 200

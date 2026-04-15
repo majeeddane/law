@@ -6,20 +6,23 @@ import { SuccessStories } from "@/components/law-firm/SuccessStories";
 import { LegalInsights } from "@/components/law-firm/LegalInsights";
 import { ContactSection } from "@/components/law-firm/ContactSection";
 import { Footer } from "@/components/law-firm/Footer";
+import { LanguageProvider } from "@/components/law-firm/LanguageProvider";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <Header />
-      <main className="flex-1">
-        <HeroSection />
-        <PracticeAreas />
-        <AboutFounder />
-        <SuccessStories />
-        <LegalInsights />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col bg-white">
+        <Header />
+        <main className="flex-1">
+          <HeroSection />
+          <PracticeAreas />
+          <AboutFounder />
+          <SuccessStories />
+          <LegalInsights />
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }

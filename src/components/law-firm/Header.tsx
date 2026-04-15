@@ -2,35 +2,44 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Menu, Scale, Phone, Mail, MapPin } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Menu, Scale, Phone, MapPin, Languages } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Practice Areas", href: "#practice" },
-  { label: "About", href: "#about" },
-  { label: "Success Stories", href: "#stories" },
-  { label: "Insights", href: "#insights" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLangStore } from "@/stores/language-store";
+import { getTranslations } from "@/lib/translations";
 
 export function Header() {
+  const { lang, toggleLang } = useLangStore();
+  const t = getTranslations(lang);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  const navLinks = [
+    { label: t.nav.home, href: "#home" },
+    { label: t.nav.practice, href: "#practice" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.stories, href: "#stories" },
+    { label: t.nav.insights, href: "#insights" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = navLinks.map((link) => link.href.slice(1));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
+      const sectionIds = navLinks.map((link) => link.href.slice(1));
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 120) {
-            setActiveSection(sections[i]);
+            setActiveSection(sectionIds[i]);
             break;
           }
         }
@@ -38,7 +47,7 @@ export function Header() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lang]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -50,6 +59,7 @@ export function Header() {
 
   return (
     <header
+      dir={lang === "ar" ? "rtl" : "ltr"}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
@@ -66,27 +76,20 @@ export function Header() {
       >
         <div className="bg-navy-dark/80 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between text-xs sm:text-sm text-white/70">
-            <div className="flex items-center gap-4 sm:gap-6">
-              <a
-                href="tel:+966112345678"
-                className="flex items-center gap-1.5 hover:text-gold transition-colors"
-              >
-                <Phone className="w-3 h-3" />
-                <span className="hidden sm:inline">+966 11 234 5678</span>
-                <span className="sm:hidden">Call Us</span>
-              </a>
-              <a
-                href="mailto:info@almusallam-law.com"
-                className="flex items-center gap-1.5 hover:text-gold transition-colors"
-              >
-                <Mail className="w-3 h-3" />
-                <span className="hidden sm:inline">info@almusallam-law.com</span>
-                <span className="sm:hidden">Email</span>
-              </a>
-            </div>
+            <a
+              href="tel:+966506707007"
+              className="flex items-center gap-1.5 hover:text-gold transition-colors"
+            >
+              <Phone className="w-3 h-3" />
+              <span>0506707007</span>
+            </a>
             <div className="flex items-center gap-1.5 text-gold">
               <MapPin className="w-3 h-3" />
-              <span>Olaya Towers, Riyadh</span>
+              <span>
+                {lang === "ar"
+                  ? "أبراج اليمامة، الرياض"
+                  : "Olaya Towers, Riyadh"}
+              </span>
             </div>
           </div>
         </div>
@@ -109,10 +112,10 @@ export function Header() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm sm:text-base font-bold text-white tracking-wide leading-tight">
-                AL-MUSALLAM
+                {lang === "ar" ? "المسلم" : "AL-MUSALLAM"}
               </span>
-              <span className="text-[10px] sm:text-xs text-gold/80 font-medium tracking-[0.15em] uppercase">
-                Law Firm
+              <span className="text-[10px] sm:text-xs text-gold/80 font-medium tracking-[0.15em]">
+                {lang === "ar" ? "للمحاماة" : "Law Firm"}
               </span>
             </div>
           </a>
@@ -139,78 +142,90 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA + Language toggle */}
           <div className="hidden lg:flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLang}
+              className="text-white/70 hover:text-gold hover:bg-gold/10 font-medium text-sm px-3 rounded-md transition-all duration-300 flex items-center gap-1.5"
+            >
+              <Languages className="w-4 h-4" />
+              {lang === "ar" ? "EN" : "عربي"}
+            </Button>
             <Button
               onClick={() => handleNavClick("#contact")}
               className="bg-gold text-navy-dark hover:bg-gold-light font-semibold text-sm px-6 rounded-md transition-all duration-300 shadow-lg shadow-gold/20"
             >
-              Book Consultation
+              {t.nav.cta}
             </Button>
           </div>
 
           {/* Mobile menu */}
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white/10"
-              >
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-80 bg-navy border-navy-light/20"
+          <div className="flex items-center gap-2 lg:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLang}
+              className="text-white/70 hover:text-gold hover:bg-gold/10"
             >
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-2 mt-8">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.href);
-                    }}
-                    className={cn(
-                      "px-4 py-3 rounded-lg text-base font-medium transition-all",
-                      activeSection === link.href.slice(1)
-                        ? "text-gold bg-gold/10"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <Button
-                    onClick={() => handleNavClick("#contact")}
-                    className="w-full bg-gold text-navy-dark hover:bg-gold-light font-semibold"
-                  >
-                    Book Consultation
-                  </Button>
+              <Languages className="w-5 h-5" />
+            </Button>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/10"
+                >
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side={lang === "ar" ? "left" : "right"}
+                className="w-80 bg-navy border-navy-light/20"
+              >
+                <SheetTitle className="sr-only">{t.nav.mobileNav}</SheetTitle>
+                <div className="flex flex-col gap-2 mt-8">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(link.href);
+                      }}
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-base font-medium transition-all",
+                        activeSection === link.href.slice(1)
+                          ? "text-gold bg-gold/10"
+                          : "text-white/70 hover:text-white hover:bg-white/5"
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <div className="mt-4 pt-4 border-t border-white/10">
+                    <Button
+                      onClick={() => handleNavClick("#contact")}
+                      className="w-full bg-gold text-navy-dark hover:bg-gold-light font-semibold"
+                    >
+                      {t.nav.cta}
+                    </Button>
+                  </div>
+                  <div className="mt-6 space-y-3 px-4 text-sm text-white/50">
+                    <a
+                      href="tel:+966506707007"
+                      className="flex items-center gap-2 hover:text-gold transition-colors"
+                    >
+                      <Phone className="w-4 h-4" />
+                      0506707007
+                    </a>
+                  </div>
                 </div>
-                <div className="mt-6 space-y-3 px-4 text-sm text-white/50">
-                  <a
-                    href="tel:+966112345678"
-                    className="flex items-center gap-2 hover:text-gold transition-colors"
-                  >
-                    <Phone className="w-4 h-4" />
-                    +966 11 234 5678
-                  </a>
-                  <a
-                    href="mailto:info@almusallam-law.com"
-                    className="flex items-center gap-2 hover:text-gold transition-colors"
-                  >
-                    <Mail className="w-4 h-4" />
-                    info@almusallam-law.com
-                  </a>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>

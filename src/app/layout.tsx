@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cairo } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -14,28 +16,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mohammed Al-Musallam Law Firm | Legal Excellence in Riyadh",
+  title: "مكتب المحامي محمد المسلم | التميّز القانوني في الرياض",
   description:
-    "Premier Saudi law firm specializing in Corporate Law, Commercial Litigation, and Sharia-compliant legal consulting. Based in Olaya Towers, Riyadh.",
+    "مكتب محاماة سعودي رائد متخصص في قانون الشركات والمنازعات التجارية والاستشارات المتوافقة مع الشريعة. أبراج اليمامة، الرياض.",
   keywords: [
-    "Saudi law firm",
-    "Riyadh lawyer",
-    "corporate law Saudi Arabia",
-    "commercial litigation",
-    "Sharia law",
-    "legal consulting Riyadh",
-    "Mohammed Al-Musallam",
-    "Olaya Towers",
-    "real estate law Saudi",
-    "dispute resolution",
+    "محامي الرياض",
+    "محامي سعودي",
+    "مكتب محاماة",
+    "قانون الشركات السعودية",
+    "المنازعات التجارية",
+    "الشريعة الإسلامية",
+    "استشارات قانونية الرياض",
+    "محمد المسلم",
+    "أبراج اليمامة",
   ],
-  authors: [{ name: "Mohammed Al-Musallam Law Firm" }],
   openGraph: {
-    title: "Mohammed Al-Musallam Law Firm | Legal Excellence in Riyadh",
+    title: "مكتب المحامي محمد المسلم | التميّز القانوني في الرياض",
     description:
-      "Premier Saudi law firm specializing in Corporate Law, Commercial Litigation, and Sharia-compliant legal consulting.",
+      "مكتب محاماة سعودي رائد متخصص في قانون الشركات والمنازعات التجارية والاستشارات المتوافقة مع الشريعة.",
     type: "website",
-    locale: "en_SA",
+    locale: "ar_SA",
   },
 };
 
@@ -45,9 +45,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ar" dir="rtl">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${cairo.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

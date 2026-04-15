@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useLangStore } from "@/stores/language-store";
+import { getTranslations } from "@/lib/translations";
 import {
   Phone,
   Mail,
@@ -23,42 +25,12 @@ import {
   CheckCircle2,
   Loader2,
   Building2,
+  ExternalLink,
 } from "lucide-react";
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Visit Us",
-    lines: ["Olaya Towers, Tower A", "Floor 28, King Fahd Road", "Riyadh 12241, Saudi Arabia"],
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    lines: ["+966 11 234 5678", "+966 50 123 4567"],
-  },
-  {
-    icon: Mail,
-    title: "Email Us",
-    lines: ["info@almusallam-law.com", "consultations@almusallam-law.com"],
-  },
-  {
-    icon: Clock,
-    title: "Office Hours",
-    lines: ["Sunday - Thursday: 8:00 AM - 6:00 PM", "Friday - Saturday: By Appointment"],
-  },
-];
-
-const practiceOptions = [
-  "Corporate Governance",
-  "Real Estate Law",
-  "Dispute Resolution",
-  "Sharia-Compliant Advisory",
-  "Commercial Contracts",
-  "Foreign Investment",
-  "Other",
-];
-
 export function ContactSection() {
+  const { lang } = useLangStore();
+  const t = getTranslations(lang);
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -82,8 +54,8 @@ export function ContactSection() {
 
     if (!formData.name || !formData.email || !formData.practice || !formData.message) {
       toast({
-        title: "Please fill in all required fields",
-        description: "Name, email, practice area, and message are required.",
+        title: t.contact.form.validationTitle,
+        description: t.contact.form.validationMsg,
         variant: "destructive",
       });
       return;
@@ -104,21 +76,44 @@ export function ContactSection() {
 
       setSubmitted(true);
       toast({
-        title: "Consultation Request Submitted",
-        description:
-          "Thank you for reaching out. Our team will contact you within 24 hours.",
+        title: t.contact.form.toastTitle,
+        description: t.contact.form.toastMsg,
       });
     } catch {
       toast({
-        title: "Submission Failed",
-        description:
-          "Please try again or contact us directly by phone.",
+        title: t.contact.form.errorTitle,
+        description: t.contact.form.errorMsg,
         variant: "destructive",
       });
     } finally {
       setSubmitting(false);
     }
   };
+
+  const contactCards = [
+    {
+      icon: MapPin,
+      title: t.contact.info.visit.title,
+      lines: t.contact.info.visit.lines,
+    },
+    {
+      icon: Phone,
+      title: t.contact.info.call.title,
+      lines: t.contact.info.call.lines,
+      href: "tel:+966506707007",
+    },
+    {
+      icon: Mail,
+      title: t.contact.info.email.title,
+      lines: t.contact.info.email.lines,
+      href: "mailto:info@mohamalmusallam.com",
+    },
+    {
+      icon: Clock,
+      title: t.contact.info.hours.title,
+      lines: t.contact.info.hours.lines,
+    },
+  ];
 
   return (
     <section id="contact" className="relative py-24 sm:py-32 bg-secondary/30">
@@ -134,15 +129,14 @@ export function ContactSection() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="inline-block text-sm font-semibold text-gold-dark uppercase tracking-[0.2em] mb-4">
-            Get in Touch
+            {t.contact.label}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy tracking-tight">
-            Book a Consultation
+            {t.contact.title}
           </h2>
           <div className="gold-line mx-auto mt-6" />
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            Take the first step toward resolving your legal matter. Our team is
-            ready to provide the expert guidance you need.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -154,7 +148,7 @@ export function ContactSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16"
         >
-          {contactInfo.map((info, i) => (
+          {contactCards.map((info, i) => (
             <div
               key={i}
               className="p-5 rounded-xl bg-white border border-navy/5 shadow-sm"
@@ -166,8 +160,17 @@ export function ContactSection() {
                 {info.title}
               </div>
               {info.lines.map((line, j) => (
-                <div key={j} className="text-sm text-muted-foreground">
-                  {line}
+                <div key={j}>
+                  {info.href && j === 0 ? (
+                    <a
+                      href={info.href}
+                      className="text-sm text-muted-foreground hover:text-gold-dark transition-colors"
+                    >
+                      {line}
+                    </a>
+                  ) : (
+                    <div className="text-sm text-muted-foreground">{line}</div>
+                  )}
                 </div>
               ))}
             </div>
@@ -190,11 +193,10 @@ export function ContactSection() {
                   <CheckCircle2 className="w-8 h-8 text-green-600" />
                 </div>
                 <h3 className="text-xl font-bold text-navy mb-2">
-                  Request Received
+                  {t.contact.form.success}
                 </h3>
                 <p className="text-muted-foreground max-w-sm">
-                  Thank you, {formData.name}. Our legal team will review your
-                  inquiry and respond within 24 business hours.
+                  {t.contact.form.successMsg}
                 </p>
                 <Button
                   variant="outline"
@@ -211,43 +213,38 @@ export function ContactSection() {
                     });
                   }}
                 >
-                  Submit Another Request
+                  {t.contact.form.submitAnother}
                 </Button>
               </div>
             ) : (
               <>
                 <h3 className="text-xl font-bold text-navy mb-1">
-                  Request a Consultation
+                  {t.contact.form.title}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-8">
-                  Fields marked with <span className="text-red-500">*</span> are
-                  required
+                  {t.contact.form.requiredNote}
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <Label htmlFor="name">
-                        Full Name <span className="text-red-500">*</span>
-                      </Label>
+                      <Label htmlFor="name">{t.contact.form.nameLabel}</Label>
                       <Input
                         id="name"
                         name="name"
-                        placeholder="Your full name"
+                        placeholder={t.contact.form.namePlaceholder}
                         value={formData.name}
                         onChange={handleChange}
                         className="rounded-lg border-navy/10 focus:border-gold focus:ring-gold/20"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">
-                        Email <span className="text-red-500">*</span>
-                      </Label>
+                      <Label htmlFor="email">{t.contact.form.emailLabel}</Label>
                       <Input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder={t.contact.form.emailPlaceholder}
                         value={formData.email}
                         onChange={handleChange}
                         className="rounded-lg border-navy/10 focus:border-gold focus:ring-gold/20"
@@ -257,22 +254,22 @@ export function ContactSection() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
+                      <Label htmlFor="phone">{t.contact.form.phoneLabel}</Label>
                       <Input
                         id="phone"
                         name="phone"
-                        placeholder="+966 XX XXX XXXX"
+                        placeholder={t.contact.form.phonePlaceholder}
                         value={formData.phone}
                         onChange={handleChange}
                         className="rounded-lg border-navy/10 focus:border-gold focus:ring-gold/20"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="company">Company</Label>
+                      <Label htmlFor="company">{t.contact.form.companyLabel}</Label>
                       <Input
                         id="company"
                         name="company"
-                        placeholder="Your company name"
+                        placeholder={t.contact.form.companyPlaceholder}
                         value={formData.company}
                         onChange={handleChange}
                         className="rounded-lg border-navy/10 focus:border-gold focus:ring-gold/20"
@@ -281,9 +278,7 @@ export function ContactSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="practice">
-                      Practice Area <span className="text-red-500">*</span>
-                    </Label>
+                    <Label htmlFor="practice">{t.contact.form.practiceLabel}</Label>
                     <Select
                       value={formData.practice}
                       onValueChange={(value) =>
@@ -291,10 +286,10 @@ export function ContactSection() {
                       }
                     >
                       <SelectTrigger className="rounded-lg border-navy/10 focus:border-gold focus:ring-gold/20">
-                        <SelectValue placeholder="Select a practice area" />
+                        <SelectValue placeholder={t.contact.form.practicePlaceholder} />
                       </SelectTrigger>
                       <SelectContent>
-                        {practiceOptions.map((option) => (
+                        {t.contact.practiceOptions.map((option) => (
                           <SelectItem key={option} value={option}>
                             {option}
                           </SelectItem>
@@ -304,13 +299,11 @@ export function ContactSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">
-                      Your Message <span className="text-red-500">*</span>
-                    </Label>
+                    <Label htmlFor="message">{t.contact.form.messageLabel}</Label>
                     <Textarea
                       id="message"
                       name="message"
-                      placeholder="Briefly describe your legal matter..."
+                      placeholder={t.contact.form.messagePlaceholder}
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
@@ -326,11 +319,11 @@ export function ContactSection() {
                     {submitting ? (
                       <>
                         <Loader2 className="mr-2 w-4 h-4 animate-spin" />
-                        Submitting...
+                        {t.contact.form.submitting}
                       </>
                     ) : (
                       <>
-                        Submit Consultation Request
+                        {t.contact.form.submit}
                         <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
@@ -348,10 +341,9 @@ export function ContactSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="relative rounded-2xl overflow-hidden shadow-sm border border-navy/5 min-h-[400px] lg:min-h-0"
           >
-            {/* Map placeholder with actual Google Maps embed */}
             <div className="absolute inset-0 bg-navy/5">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.6742045568!2d46.6752!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f02833e0eaaaa%3A0x8d7c6e5c5c5c5c5c!2sOlaya%20Towers%2C%20King%20Fahd%20Rd%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1700000000000!5m2!1sen!2ssa"
+                src="https://maps.google.com/maps?q=Olaya+Towers+Prince+Muhammed+Ibn+Abdulaziz+St+Al+Olaya+Riyadh+12213+Saudi+Arabia&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px" }}
@@ -359,7 +351,7 @@ export function ContactSection() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[30%] contrast-[1.1]"
-                title="Olaya Towers Location Map"
+                title="Office Location Map"
               />
             </div>
 
@@ -369,16 +361,25 @@ export function ContactSection() {
                 <div className="w-10 h-10 rounded-lg bg-navy flex items-center justify-center flex-shrink-0">
                   <Building2 className="w-5 h-5 text-gold" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="font-bold text-navy text-sm">
-                    Al-Musallam Law Firm
+                    {lang === "ar" ? "مكتب المحامي محمد المسلم" : "Mohammed Al-Musallam Law Firm"}
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">
-                    Olaya Towers, Tower A, Floor 28
+                    {t.contact.mapAddress}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    King Fahd Road, Riyadh 12241
+                    {t.contact.mapAddress2}
                   </div>
+                  <a
+                    href="https://share.google/IO61hJAKHhpS3mT0s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-gold-dark hover:text-gold font-medium mt-2 transition-colors"
+                  >
+                    {lang === "ar" ? "عرض على الخريطة" : "View on Google Maps"}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
             </div>
