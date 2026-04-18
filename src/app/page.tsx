@@ -1,6 +1,8 @@
+import { PageLoader } from "@/components/law-firm/PageLoader";
 import { Header } from "@/components/law-firm/Header";
 import { HeroSection } from "@/components/law-firm/HeroSection";
 import { PracticeAreas } from "@/components/law-firm/PracticeAreas";
+import { WhyChooseUs } from "@/components/law-firm/WhyChooseUs";
 import { AboutFounder } from "@/components/law-firm/AboutFounder";
 import { SuccessStories } from "@/components/law-firm/SuccessStories";
 import { LegalInsights } from "@/components/law-firm/LegalInsights";
@@ -13,10 +15,12 @@ export default function Home() {
   return (
     <LanguageProvider>
       <div className="min-h-screen flex flex-col bg-white">
+        <PageLoader />
         <Header />
         <main className="flex-1">
           <HeroSection />
           <PracticeAreas />
+          <WhyChooseUs />
           <AboutFounder />
           <SuccessStories />
           <LegalInsights />

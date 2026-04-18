@@ -119,6 +119,15 @@ export type Translations = {
     privacy: string;
     terms: string;
   };
+  whyUs: {
+    label: string;
+    title: string;
+    subtitle: string;
+    features: {
+      title: string;
+      description: string;
+    }[];
+  };
 };
 
 const translations: Record<Lang, Translations> = {
@@ -324,8 +333,8 @@ const translations: Record<Lang, Translations> = {
         visit: {
           title: "زورونا",
           lines: [
-            "أبراج اليمامة، شارع الأمير محمد بن عبدالعزيز",
-            "حي اليمامة، الرياض ١٢٢١٣",
+            "شارع العليا، أبراج العليا",
+            "حي العليا، الرياض ١٢٢١٣",
             "المملكة العربية السعودية",
           ],
         },
@@ -381,8 +390,8 @@ const translations: Record<Lang, Translations> = {
         "الاستثمار الأجنبي",
         "أخرى",
       ],
-      mapAddress: "أبراج اليمامة، شارع الأمير محمد بن عبدالعزيز",
-      mapAddress2: "حي اليمامة، الرياض ١٢٢١٣",
+      mapAddress: "شارع العليا، أبراج العليا",
+      mapAddress2: "حي العليا، الرياض ١٢٢١٣",
     },
     footer: {
       ctaTitle: "هل أنت مستعد لحماية مصالحك القانونية؟",
@@ -391,7 +400,7 @@ const translations: Record<Lang, Translations> = {
       ctaBtn: "احجز استشارة",
       callBtn: "اتصل الآن",
       description:
-        "الاستشارات القانونية الرائدة في المملكة لحوكمة الشركات، المنازعات التجارية، والاستشارات المتوافقة مع الشريعة. موثوق من كبرى الشركات في المملكة ومنطقة الخليج.",
+        "مكتب المحامي محمد المسلم — الاستشارات القانونية الرائدة في المملكة لحوكمة الشركات، المنازعات التجارية، والاستشارات المتوافقة مع الشريعة. موثوق من كبرى الشركات في المملكة ومنطقة الخليج.",
       links: {
         "مجالات الممارسة": [
           "حوكمة الشركات",
@@ -419,6 +428,34 @@ const translations: Record<Lang, Translations> = {
       copyright: `© ${new Date().getFullYear()} مكتب المحامي محمد المسلم. جميع الحقوق محفوظة. مرخّص من وزارة العدل السعودية.`,
       privacy: "سياسة الخصوصية",
       terms: "الشروط والأحكام",
+    },
+    whyUs: {
+      label: "لماذا تختارنا",
+      title: "لماذا تختار مكتبنا",
+      subtitle:
+        "نتميّز بخبرة عميقة ونزاهة لا تقبل المساومة في خدمة عملائنا. إليكم ما يجعلنا الخيار الأول في المملكة.",
+      features: [
+        {
+          title: "خبرة +25 عاماً",
+          description:
+            "أكثر من عقدين من الملاحة في المشهد القانوني المتطور بالمملكة العربية السعودية مع نجاح مثبت في أصعب القضايا.",
+        },
+        {
+          title: "نزاهة وموثوقية",
+          description:
+            "تُعامَل كل قضية بأعلى المعايير الأخلاقية والسرية التامة، مما يجعلنا الشريك القانوني الذي يمكنك الوثوق به.",
+        },
+        {
+          title: "فهم عميق للنظام السعودي",
+          description:
+            "معرفة شاملة بالقانون السعودي والامتثال للشريعة الإسلامية والأطر التنظيمية المتغيرة باستمرار.",
+        },
+        {
+          title: "نتائج استثنائية",
+          description:
+            "سجل حافل بحل النزاعات المعقدة والمعاملات ذات القيمة العالية التي تتجاوز مليارات الريالات.",
+        },
+      ],
     },
   },
   en: {
@@ -626,7 +663,7 @@ const translations: Record<Lang, Translations> = {
         visit: {
           title: "Visit Us",
           lines: [
-            "Olaya Towers, Prince Muhammed Ibn Abdulaziz St",
+            "Olaya Street, Olaya Towers",
             "Al Olaya, Riyadh 12213",
             "Saudi Arabia",
           ],
@@ -685,7 +722,7 @@ const translations: Record<Lang, Translations> = {
         "Foreign Investment",
         "Other",
       ],
-      mapAddress: "Olaya Towers, Prince Muhammed Ibn Abdulaziz St",
+      mapAddress: "Olaya Street, Olaya Towers",
       mapAddress2: "Al Olaya, Riyadh 12213",
     },
     footer: {
@@ -723,6 +760,34 @@ const translations: Record<Lang, Translations> = {
       copyright: `© ${new Date().getFullYear()} Mohammed Al-Musallam Law Firm. All rights reserved. Licensed by the Saudi Ministry of Justice.`,
       privacy: "Privacy Policy",
       terms: "Terms of Service",
+    },
+    whyUs: {
+      label: "Why Choose Us",
+      title: "Why Choose Our Firm",
+      subtitle:
+        "We distinguish ourselves through deep expertise and unwavering integrity in serving our clients. Here is what makes us the premier choice in the Kingdom.",
+      features: [
+        {
+          title: "25+ Years of Experience",
+          description:
+            "Over two decades navigating Saudi Arabia's evolving legal landscape with proven success across the most challenging cases.",
+        },
+        {
+          title: "Integrity & Trust",
+          description:
+            "Every case is handled with the highest ethical standards and complete confidentiality, making us the legal partner you can rely on.",
+        },
+        {
+          title: "Deep Saudi Legal Expertise",
+          description:
+            "Comprehensive knowledge of Saudi law, Sharia compliance, and the continuously evolving regulatory frameworks.",
+        },
+        {
+          title: "Exceptional Results",
+          description:
+            "Track record of resolving complex disputes and high-value transactions worth billions of riyals.",
+        },
+      ],
     },
   },
 };

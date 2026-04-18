@@ -90,7 +90,7 @@ export function Header() {
                 <div className="hidden sm:flex items-center gap-2 text-[#C8A96A]/70">
                   <MapPin className="w-3.5 h-3.5" />
                   <span>
-                    {isRTL ? "أبراج اليمامة، الرياض" : "Olaya Towers, Riyadh"}
+                    {isRTL ? "أبراج العليا، الرياض" : "Olaya Towers, Riyadh"}
                   </span>
                 </div>
               </div>
@@ -258,7 +258,7 @@ export function Header() {
                     <div className="flex items-center gap-2.5 text-[#C8A96A]/60">
                       <MapPin className="w-4 h-4" />
                       <span>
-                        {isRTL ? "أبراج اليمامة، الرياض" : "Olaya Towers, Riyadh"}
+                        {isRTL ? "أبراج العليا، الرياض" : "Olaya Towers, Riyadh"}
                       </span>
                     </div>
                   </div>

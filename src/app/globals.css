@@ -151,6 +151,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'SFProARText', 'SFProAR', system-ui, sans-serif;
+    line-height: 1.75;
   }
   html {
     scroll-behavior: smooth;
@@ -158,6 +159,7 @@
   /* All headings use Display font */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'SFProARDisplay', 'SFProAR', system-ui, sans-serif;
+    line-height: 1.35;
   }
   /* Labels, badges, navigation use AR font */
   nav, [role="navigation"] {
@@ -165,6 +167,44 @@
   }
   label, .font-ui {
     font-family: 'SFProAR', 'SFProARText', system-ui, sans-serif;
+  }
+  /* RTL Arabic text improvements */
+  [dir="rtl"] body {
+    text-align: right;
+  }
+  [dir="rtl"] p, [dir="rtl"] li, [dir="rtl"] span, [dir="rtl"] div {
+    text-align: inherit;
+  }
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+  /* Better Arabic font rendering */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    letter-spacing: 0;
+    word-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  [dir="rtl"] p, [dir="rtl"] .leading-relaxed {
+    line-height: 1.9;
+    }
+  /* Fix text alignment for centered content */
+  [dir="rtl"] .text-center {
+    text-align: center !important;
+  }
+  [dir="rtl"] .text-start {
+    text-align: right;
+  }
+  [dir="rtl"] .text-end {
+    text-align: left;
+  }
+  /* Arabic numerals in counters */
+  [dir="rtl"] .ar-nums {
+    font-feature-settings: 'ss01' on;
   }
 }
 
@@ -276,6 +316,23 @@
   transform: scaleX(-1);
 }
 
+/* Arabic text utilities */
+.ar-text {
+  font-feature-settings: 'ss01' on, 'liga' on, 'calt' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Improved list rendering for Arabic */
+[dir="rtl"] ul, [dir="rtl"] ol {
+  padding-right: 1.5em;
+  padding-left: 0;
+}
+[dir="rtl"] li::marker {
+  text-align: right;
+}
+
 /* Smooth page transitions */
 main > section {
   will-change: transform, opacity;
@@ -289,12 +346,36 @@ main > section {
   content: '';
   position: absolute;
   bottom: -2px;
-  left: 0;
+  right: 0;
+  left: auto;
   width: 0;
   height: 1.5px;
   background: #C8A96A;
   transition: width 0.3s ease;
 }
+[dir="ltr"] .link-underline::after {
+  right: auto;
+  left: 0;
+}
 .link-underline:hover::after {
   width: 100%;
+}
+
+/* Gold line RTL alignment */
+[dir="rtl"] .gold-line {
+  margin-left: auto;
+  margin-right: 0;
+}
+[dir="ltr"] .gold-line {
+  margin-right: auto;
+  margin-left: 0;
+}
+.text-center .gold-line {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Page loading state */
+body.loading {
+  overflow: hidden;
 }

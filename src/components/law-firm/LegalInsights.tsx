@@ -12,15 +12,6 @@ const categoryColors = [
   "bg-charcoal/10 text-charcoal",
 ];
 
-const quickLinkVariants = {
-  hidden: { opacity: 0, x: -16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" as const },
-  }),
-};
-
 const articleVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
@@ -39,8 +30,17 @@ export function LegalInsights() {
   const t = getTranslations(lang);
   const isRTL = lang === "ar";
 
+  const quickLinkVariants = {
+    hidden: { opacity: 0, x: isRTL ? 16 : -16 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" as const },
+    }),
+  };
+
   return (
-    <section id="insights" className="bg-white py-24 sm:py-32">
+    <section id="insights" dir={isRTL ? "rtl" : "ltr"} className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
           {/* ─── Left Column: Header + Quick Links ─── */}

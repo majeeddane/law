@@ -30,6 +30,7 @@ import {
 
 export function ContactSection() {
   const { lang } = useLangStore();
+  const isRTL = lang === "ar";
   const t = getTranslations(lang);
   const { toast } = useToast();
 
@@ -117,7 +118,7 @@ export function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="bg-[#FAFAFA] py-28 sm:py-36 relative">
+    <section id="contact" dir={isRTL ? "rtl" : "ltr"} className="bg-[#FAFAFA] py-28 sm:py-36 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <RevealOnScroll className="text-center max-w-2xl mx-auto mb-16">
@@ -172,7 +173,7 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact form */}
           <RevealOnScroll direction="left" delay={0.2}>
-            <div className="bg-white rounded-2xl p-7 sm:p-10 border border-navy/5 shadow-sm">
+            <div className={cn("bg-white rounded-2xl p-7 sm:p-10 border border-navy/5 shadow-sm", isRTL && "ar-text")}>
               {submitted ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-6">
@@ -204,14 +205,14 @@ export function ContactSection() {
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold text-navy mb-1">
+                  <h3 className={cn("text-xl font-bold text-navy mb-1", isRTL ? "text-right" : "text-left")}>
                     {t.contact.form.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-8">
+                  <p className={cn("text-sm text-muted-foreground mb-8", isRTL ? "text-right" : "text-left")}>
                     {t.contact.form.requiredNote}
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} dir={isRTL ? "rtl" : "ltr"} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <FloatingLabelInput
                         id="name"
@@ -290,13 +291,13 @@ export function ContactSection() {
                     >
                       {submitting ? (
                         <>
-                          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                          <Loader2 className={cn("w-4 h-4 animate-spin", isRTL ? "ml-2" : "mr-2")} />
                           {t.contact.form.submitting}
                         </>
                       ) : (
                         <>
                           {t.contact.form.submit}
-                          <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          <Send className={cn("w-4 h-4 transition-transform", isRTL ? "mr-2 group-hover:-translate-x-1" : "ml-2 group-hover:translate-x-1")} />
                         </>
                       )}
                     </Button>
@@ -310,7 +311,7 @@ export function ContactSection() {
           <RevealOnScroll direction="right" delay={0.3}>
             <div className="relative rounded-2xl overflow-hidden border border-navy/5 min-h-[500px] shadow-sm">
               <iframe
-                src="https://maps.google.com/maps?q=Olaya+Towers+Prince+Muhammed+Ibn+Abdulaziz+St+Al+Olaya+Riyadh+12213+Saudi+Arabia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=Olaya+Towers+Olaya+Street+Riyadh+Saudi+Arabia&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{
