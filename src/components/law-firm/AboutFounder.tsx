@@ -1,24 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import {
   GraduationCap,
-  Award,
   BookOpen,
   Scale,
-  ArrowRight,
+  Award,
   CheckCircle2,
+  ArrowLeft,
 } from "lucide-react";
 import { useLangStore } from "@/stores/language-store";
 import { getTranslations } from "@/lib/translations";
 import { cn } from "@/lib/utils";
+import { AnimatedCounter } from "@/components/law-firm/AnimatedCounter";
+import { RevealOnScroll } from "@/components/law-firm/ParallaxSection";
 
 const credentialIcons = [GraduationCap, BookOpen, Scale, Award];
 
 export function AboutFounder() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
+  const isRTL = lang === "ar";
 
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -28,121 +29,150 @@ export function AboutFounder() {
   return (
     <section
       id="about"
-      className="relative py-24 sm:py-32 bg-navy-dark overflow-hidden"
+      className="gradient-dark-radial relative py-28 sm:py-36 overflow-hidden"
     >
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
-      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gold/3 blur-3xl" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gold/3 blur-3xl" />
+      {/* Subtle brand pattern overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: "url('/images/brand-pattern.svg')",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      {/* Ambient glow decorations */}
+      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
+
+      {/* Top edge line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image side */}
-          <motion.div
-            initial={{ opacity: 0, x: lang === "ar" ? 40 : -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+          {/* ─── Image Column ─── */}
+          <RevealOnScroll direction={isRTL ? "right" : "left"}>
+            <div className="relative max-w-md mx-auto lg:mx-0">
+              {/* Founder portrait */}
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold/15 shadow-2xl shadow-black/40">
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: "url('/images/founder-portrait.png')",
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent" />
-              </div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/50 via-transparent to-transparent" />
 
-              {/* Credentials badge */}
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-gold-dark" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-navy">25+</div>
-                    <div className="text-xs text-muted-foreground">
-                      {t.about.yearsLabel}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Text side */}
-          <motion.div
-            initial={{ opacity: 0, x: lang === "ar" ? -40 : 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="inline-block text-sm font-semibold text-gold uppercase tracking-[0.2em] mb-4">
-              {t.about.label}
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-              {t.about.title1}
-              <br />
-              <span className="text-gold">{t.about.title2}</span>
-            </h2>
-            <div className="gold-line mt-6" />
-
-            <p className="mt-8 text-white/60 text-lg leading-relaxed">
-              {t.about.bio1}
-            </p>
-
-            <p className="mt-4 text-white/50 leading-relaxed">
-              {t.about.bio2}
-            </p>
-
-            {/* Credentials */}
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {t.about.credentials.map((cred, i) => {
-                const Icon = credentialIcons[i] || Award;
-                return (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 text-white/70"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-gold" />
-                    </div>
-                    <span className="text-sm">{cred.text}</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Key achievements */}
-            <div className="mt-8 space-y-3">
-              {t.about.achievements.map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-gold flex-shrink-0" />
-                  <span className="text-white/70 text-sm">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="mt-10">
-              <Button
-                size="lg"
-                onClick={() => handleScrollTo("contact")}
-                className="bg-gold text-navy-dark hover:bg-gold-light font-semibold shadow-lg shadow-gold/20 transition-all duration-300 group"
-              >
-                {t.about.cta}
-                <ArrowRight
+                {/* Decorative corner — top-right gold border accent */}
+                <div
                   className={cn(
-                    "w-4 h-4 group-hover:translate-x-1 transition-transform",
-                    lang === "ar" ? "ml-0 rtl-flip" : "ml-2"
+                    "absolute top-0 w-20 h-20 border-t-2 border-l-2 border-gold/15 pointer-events-none",
+                    isRTL ? "left-0 border-l-2 border-r-0" : "right-0 border-r-2 border-l-0"
                   )}
+                  style={{
+                    [isRTL ? "borderLeftWidth" : "borderRightWidth"]: "2px",
+                    borderTopWidth: "2px",
+                  }}
                 />
-              </Button>
+              </div>
+
+              {/* Floating glass badge with years counter */}
+              <div className="absolute -bottom-5 right-0 lg:-right-6">
+                <div className="glass rounded-2xl px-5 py-4 shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="flex flex-col">
+                      <span className="text-3xl font-bold text-white tracking-tight">
+                        <AnimatedCounter end={25} duration={2000} suffix="+" />
+                      </span>
+                      <span className="text-[11px] text-gold/80 font-medium mt-0.5">
+                        {t.about.yearsLabel}
+                      </span>
+                    </div>
+                    <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center ml-1">
+                      <Award className="w-5 h-5 text-gold" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </RevealOnScroll>
+
+          {/* ─── Text Column ─── */}
+          <RevealOnScroll direction={isRTL ? "left" : "right"} delay={0.15}>
+            <div>
+              {/* Label */}
+              <span className="inline-block text-gold uppercase tracking-[0.2em] text-[13px] font-semibold mb-5">
+                {t.about.label}
+              </span>
+
+              {/* Title */}
+              <h2 className="text-3xl sm:text-4xl lg:text-[2.85rem] font-bold text-white tracking-tight leading-[1.15]">
+                {t.about.title1}
+                <span className="text-gold"> {t.about.title2}</span>
+              </h2>
+
+              {/* Gold line divider */}
+              <div className="gold-line mt-7" />
+
+              {/* Bio */}
+              <p className="mt-8 text-white/50 text-lg leading-relaxed">
+                {t.about.bio1}
+              </p>
+              <p className="mt-4 text-white/35 text-base leading-relaxed">
+                {t.about.bio2}
+              </p>
+
+              {/* Credentials — 2-column grid */}
+              <div className="mt-9 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {t.about.credentials.map((cred, i) => {
+                  const Icon = credentialIcons[i] || Award;
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors duration-300">
+                        <Icon className="w-4 h-4 text-gold" />
+                      </div>
+                      <span className="text-sm text-white/60">{cred.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Achievements */}
+              <div className="mt-8 space-y-3.5">
+                {t.about.achievements.map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-gold flex-shrink-0" />
+                    <span className="text-white/60 text-sm leading-relaxed">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <div className="mt-10">
+                <button
+                  onClick={() => handleScrollTo("contact")}
+                  className={cn(
+                    "inline-flex items-center gap-2 px-8 py-3.5 rounded-xl",
+                    "bg-gold text-navy-dark font-bold text-sm",
+                    "hover:bg-gold-light transition-all duration-300",
+                    "shadow-lg shadow-gold/20 hover:shadow-gold/30 hover:scale-[1.03]",
+                    "active:scale-[0.98]"
+                  )}
+                >
+                  {t.about.cta}
+                  <ArrowLeft
+                    className={cn(
+                      "w-4 h-4 transition-transform duration-300",
+                      isRTL ? "rotate-0 mr-1" : "rotate-180 ml-1"
+                    )}
+                  />
+                </button>
+              </div>
+            </div>
+          </RevealOnScroll>
         </div>
       </div>
     </section>

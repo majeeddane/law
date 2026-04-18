@@ -1,18 +1,46 @@
 "use client";
 
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, Shield, Award, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLangStore } from "@/stores/language-store";
 import { getTranslations } from "@/lib/translations";
+import { AnimatedCounter } from "@/components/law-firm/AnimatedCounter";
 
 const statIcons = [Shield, Award, Users];
+const statNumericValues = [25, 2000, 500];
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay, ease: "easeOut" as const },
+  }),
+};
 
 export function HeroSection() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
   const isRTL = lang === "ar";
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -21,32 +49,47 @@ export function HeroSection() {
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       dir={isRTL ? "rtl" : "ltr"}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Background image with overlay */}
-      <div className="absolute inset-0">
+      {/* Parallax Background */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: bgY }}
+      >
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
           style={{
             backgroundImage: "url('/images/hero-bg.png')",
           }}
         />
-        <div className="hero-gradient absolute inset-0" />
-      </div>
+      </motion.div>
 
-      {/* Decorative gold line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+      {/* Gradient overlay */}
+      <div className="hero-gradient absolute inset-0" />
+
+      {/* Decorative animated gold line at top */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent origin-center"
+      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:pt-40 sm:pb-28">
-        <div className="max-w-3xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:pt-40 sm:pb-28 w-full">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="max-w-3xl"
+        >
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            variants={fadeUp}
+            custom={0.2}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm mb-8"
           >
             <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
@@ -57,9 +100,8 @@ export function HeroSection() {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={fadeUp}
+            custom={0.4}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight"
           >
             {t.hero.headline1}
@@ -71,9 +113,8 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            variants={fadeUp}
+            custom={0.6}
             className="mt-6 text-lg sm:text-xl text-white/60 max-w-2xl leading-relaxed"
           >
             {t.hero.subtitle}
@@ -81,9 +122,8 @@ export function HeroSection() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            variants={fadeUp}
+            custom={0.8}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
             <a href="tel:+966506707007">
@@ -109,7 +149,7 @@ export function HeroSection() {
               {t.hero.ctaSecondary}
             </Button>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Stats */}
         <motion.div
@@ -120,6 +160,7 @@ export function HeroSection() {
         >
           {t.hero.stats.map((stat, i) => {
             const Icon = statIcons[i];
+            const numericValue = statNumericValues[i] ?? 0;
             return (
               <div
                 key={i}
@@ -130,7 +171,11 @@ export function HeroSection() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-white">
-                    {stat.value}
+                    <AnimatedCounter
+                      end={numericValue}
+                      prefix="+"
+                      duration={2000}
+                    />
                   </div>
                   <div className="text-sm text-white/50">{stat.label}</div>
                 </div>

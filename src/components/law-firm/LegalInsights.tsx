@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useLangStore } from "@/stores/language-store";
 import { getTranslations } from "@/lib/translations";
@@ -13,107 +12,159 @@ const categoryColors = [
   "bg-charcoal/10 text-charcoal",
 ];
 
+const quickLinkVariants = {
+  hidden: { opacity: 0, x: -16 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" as const },
+  }),
+};
+
+const articleVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: i * 0.12,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  }),
+};
+
 export function LegalInsights() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
+  const isRTL = lang === "ar";
 
   return (
-    <section id="insights" className="relative py-24 sm:py-32 bg-white">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-navy/10 to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-          {/* Left: Header + Quick Links */}
+    <section id="insights" className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
+          {/* ─── Left Column: Header + Quick Links ─── */}
           <motion.div
-            initial={{ opacity: 0, x: lang === "ar" ? 30 : -30 }}
+            initial={{ opacity: 0, x: isRTL ? 30 : -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="lg:col-span-1"
           >
-            <span className="inline-block text-sm font-semibold text-gold-dark uppercase tracking-[0.2em] mb-4">
+            <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-[0.2em] text-gold-dark">
               {t.insights.label}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy tracking-tight">
+
+            <h2 className="text-3xl font-bold tracking-tight text-navy sm:text-4xl">
               {t.insights.title}
             </h2>
+
             <div className="gold-line mt-6" />
-            <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               {t.insights.subtitle}
             </p>
 
-            {/* Quick links */}
-            <div className="mt-8 space-y-3">
+            {/* Quick Links */}
+            <div className="mt-8 space-y-2">
               {t.insights.quickLinks.map((link, i) => (
-                <div
+                <motion.div
                   key={i}
-                  className="flex items-center justify-between py-3 px-4 rounded-lg hover:bg-secondary/50 cursor-pointer group transition-colors"
+                  custom={i}
+                  variants={quickLinkVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  whileHover={{ backgroundColor: "rgba(255, 248, 230, 0.5)" }}
+                  className="group flex cursor-pointer items-center justify-between rounded-lg px-4 py-3 transition-colors duration-300"
                 >
-                  <span className="text-sm font-medium text-charcoal group-hover:text-navy transition-colors">
+                  <span className="text-sm font-medium text-charcoal transition-colors duration-300 group-hover:text-navy">
                     {link}
                   </span>
-                  <ArrowUpRight
-                    className={cn(
-                      "w-4 h-4 text-charcoal/30 group-hover:text-gold transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-                      lang === "ar" && "rtl-flip"
-                    )}
-                  />
-                </div>
+                  <motion.span
+                    className="flex items-center justify-center"
+                    whileHover={{
+                      x: isRTL ? -3 : 3,
+                      y: -3,
+                      scale: 1.1,
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <ArrowUpRight
+                      className={cn(
+                        "h-4 w-4 text-charcoal/30 transition-colors duration-300 group-hover:text-gold",
+                        isRTL && "rtl-flip"
+                      )}
+                    />
+                  </motion.span>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Right: Articles */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* ─── Right Column: Article Cards ─── */}
+          <div className="space-y-6 lg:col-span-2">
             {t.insights.articles.map((article, i) => (
               <motion.article
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                custom={i}
+                variants={articleVariants}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group p-6 lg:p-8 rounded-2xl border border-navy/5 hover:border-gold/20 transition-all duration-500 hover:shadow-lg hover:shadow-navy/5 cursor-pointer"
+                whileHover={{
+                  borderColor: "rgba(218, 165, 32, 0.2)",
+                  boxShadow:
+                    "0 10px 30px -5px rgba(0,0,0,0.08), 0 4px 10px -4px rgba(0,0,0,0.04)",
+                  y: -2,
+                }}
+                transition={{
+                  duration: 0.35,
+                  ease: "easeOut",
+                }}
+                className="group cursor-pointer rounded-2xl border border-navy/5 p-6 lg:p-8"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
-                  {/* Category & meta */}
-                  <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-2 sm:min-w-[160px]">
-                    <Badge
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+                  {/* Left: Badge + Meta */}
+                  <div className="flex flex-col gap-2 sm:min-w-[160px] sm:items-start sm:gap-2">
+                    <span
                       className={cn(
-                        categoryColors[i % categoryColors.length],
-                        "border-0 text-xs font-semibold px-3 py-1"
+                        "inline-block self-start rounded-full px-3 py-1 text-center text-xs font-semibold",
+                        categoryColors[i % categoryColors.length]
                       )}
                     >
                       {article.category}
-                    </Badge>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground sm:flex-col sm:gap-1">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
+                    </span>
+                    <div className="flex flex-col gap-1 text-xs text-muted-foreground sm:gap-1">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="h-3 w-3" />
                         {article.date}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="h-3 w-3" />
                         {article.readTime}
                       </span>
                     </div>
                   </div>
 
-                  {/* Content */}
+                  {/* Right: Title + Excerpt + CTA */}
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-navy group-hover:text-gold-dark transition-colors duration-300 leading-snug">
+                    <h3 className="text-lg font-bold leading-snug text-navy transition-colors duration-300 group-hover:text-gold-dark">
                       {article.title}
                     </h3>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {article.excerpt}
                     </p>
-                    <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold-dark group-hover:gap-2 transition-all">
+                    <motion.span
+                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold-dark"
+                      whileHover={{ gap: 8 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
                       {t.insights.readArticle}
                       <ArrowRight
-                        className={cn(
-                          "w-4 h-4",
-                          lang === "ar" && "rtl-flip"
-                        )}
+                        className={cn("h-4 w-4", isRTL && "rtl-flip")}
                       />
-                    </div>
+                    </motion.span>
                   </div>
                 </div>
               </motion.article>

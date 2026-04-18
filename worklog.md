@@ -42,23 +42,47 @@ Work Log:
 - Created `/src/components/law-firm/LanguageProvider.tsx` for dynamic RTL/LTR switching
 - Updated `globals.css`: removed pattern-overlay, simplified scrollbar, added RTL-aware `.rtl-flip` class
 - Updated `layout.tsx`: switched to Cairo font (Arabic + Latin subsets), Arabic metadata/SEO
-- Rewrote Header.tsx: Arabic nav labels, language toggle (EN/عربي), phone 0506707007, mobile sheet RTL-aware
-- Rewrote HeroSection.tsx: Arabic headline/subtitle, primary CTA "اتصل بنا" → tel:+966506707007, Phone icon
-- Rewrote PracticeAreas.tsx: 6 practice areas with full Arabic descriptions and highlights
-- Rewrote AboutFounder.tsx: Arabic bio, credentials, achievements, minimalist portrait layout
-- Rewrote SuccessStories.tsx: Arabic testimonials and trust metrics
-- Rewrote LegalInsights.tsx: Arabic articles, RTL-aware arrow flipping
-- Rewrote ContactSection.tsx: correct address (Prince Muhammed Ibn Abdulaziz St), correct phone/email, Google Maps embed, working hours (Sun-Thu 9-6, Fri-Sat closed)
-- Rewrote Footer.tsx: X/Twitter link → https://x.com/mohamalmusallam, Arabic footer links, correct phone
+- Rewrote all 8 components with Arabic primary content and RTL/LTR support
 - Updated page.tsx: wrapped with LanguageProvider
 
 Stage Summary:
 - Full bilingual support: Arabic (RTL, default) and English (LTR)
-- Language toggle in header with Languages icon
-- All contact data updated: phone 0506707007, email info@mohamalmusallam.com
+- All contact data: phone 0506707007, email info@mohamalmusallam.com
 - Correct address: Olaya Towers, Prince Muhammed Ibn Abdulaziz St, Al Olaya, Riyadh 12213
-- Google Maps embed with exact location + direct link to share.google/IO61hJAKHhpS3mT0s
-- X/Twitter icon links to @mohamalmusallam
-- Working hours: Sun-Thu 9:00 AM - 6:00 PM, Fri-Sat Closed
-- Minimalist design approach maintained
 - Zero lint errors, page loads HTTP 200
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Premium visual upgrade - cinematic animations, micro-interactions, WhatsApp, floating actions
+
+Work Log:
+- Fixed broken imports: AnimatedCounter from ParallaxSection (non-existent export), cn missing from ContactSection
+- Created `/src/components/law-firm/ParallaxSection.tsx` - utility components: ParallaxSection, RevealOnScroll, StaggerContainer, staggerChild
+- Created `/src/components/law-firm/AnimatedCounter.tsx` - animated number counter with requestAnimationFrame and easeOut cubic
+- Created `/src/components/law-firm/FloatingLabelInput.tsx` - floating label form input with focus/blur animations
+- Created `/public/images/brand-pattern.svg` - geometric diamond brand pattern
+- Updated `globals.css`: exact hex colors (#0A1F3D, #111111, #C8A96A), premium utility classes (glass, gradient-dark-radial, card-premium, btn-gold, section-divider, link-underline), refined scrollbar, smooth selection
+- Rebuilt `Header.tsx`: AnimatePresence for top bar slide-up, backdrop-blur-xl + shadow on scroll, logo shrinks on scroll, active nav indicator dot (layoutId spring animation), gold accent line on scroll
+- Rebuilt `HeroSection.tsx`: parallax background via useScroll/useTransform, animated gold line scaleX entrance, staggerContainer fadeUp variants, AnimatedCounter for 25+/2000+/500+ stats
+- Rebuilt `PracticeAreas.tsx`: StaggerContainer/staggerChild imports, hover-reveal cards (description hidden by default, slides in on hover), framer-motion whileHover lift
+- Rebuilt `AboutFounder.tsx`: gradient-dark-radial background, brand-pattern overlay, glass morphism floating badge with AnimatedCounter, RevealOnScroll directional animations, decorative corner accents
+- Rebuilt `SuccessStories.tsx`: AnimatedCounter in trust metrics banner, containerVariants/itemVariants stagger, hover lift on cards
+- Rebuilt `LegalInsights.tsx`: custom variants with typed easings, whileHover for articles (border/shadow/y), quick link hover with spring animations
+- Rebuilt `ContactSection.tsx`: cn import fix, FloatingLabelInput integration, dark-themed map (grayscale 60%, reduced brightness), glass-dark overlay card, card-premium hover class
+- Rebuilt `Footer.tsx`: premium dark footer with CTA banner, social X/Twitter link, animated back-to-top button
+- Created `/src/components/law-firm/FloatingActions.tsx`: fixed WhatsApp button (green #25D366, links to wa.me/966506707007) + Phone button (gold, links to tel:+966506707007), mobile-only (lg:hidden), motion bounce-in animations, RTL-aware positioning
+- Updated `page.tsx`: added FloatingActions component
+
+Stage Summary:
+- World-class premium visual upgrade complete
+- Exact brand colors: Deep Navy #0A1F3D, Charcoal #111111, Gold #C8A96A
+- Cinematic parallax hero with animated stats counters
+- Sticky header with backdrop-blur + shrink + gold accent line
+- Practice area cards with hover reveal (description slides in)
+- Premium founder section with glass morphism and brand pattern
+- Trust section with AnimatedCounter visual metrics
+- Dark-themed map with glass-dark overlay card
+- Floating WhatsApp + Phone call buttons (mobile)
+- 13 component files total in /src/components/law-firm/
+- Zero lint errors, HTTP 200 confirmed

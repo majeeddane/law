@@ -5,12 +5,51 @@ import { Badge } from "@/components/ui/badge";
 import { Star, Quote, Building2, Factory, Landmark } from "lucide-react";
 import { useLangStore } from "@/stores/language-store";
 import { getTranslations } from "@/lib/translations";
+import { AnimatedCounter } from "@/components/law-firm/AnimatedCounter";
 
 const testimonialIcons = [Building2, Factory, Landmark];
+
+interface MetricCounterConfig {
+  end: number;
+  prefix: string;
+  suffix: string;
+  duration: number;
+}
+
+const metricConfigs: MetricCounterConfig[] = [
+  { end: 98, prefix: "", suffix: "%", duration: 2000 },
+  { end: 15, prefix: "", suffix: "B+", duration: 2500 },
+  { end: 45, prefix: "", suffix: "+", duration: 2000 },
+  { end: 12, prefix: "", suffix: "", duration: 1800 },
+];
 
 export function SuccessStories() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
+
+  const getCounterDisplay = (i: number): string => {
+    if (lang === "ar") {
+      return ["SAR ", "+", "+", ""][i];
+    }
+    return ["", "SAR ", "+", ""][i];
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" as const },
+    },
+  };
 
   return (
     <section id="stories" className="relative py-24 sm:py-32 bg-secondary/50">
@@ -38,17 +77,20 @@ export function SuccessStories() {
         </motion.div>
 
         {/* Testimonials */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+        >
           {t.stories.testimonials.map((testimonial, i) => {
             const Icon = testimonialIcons[i] || Building2;
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className="group relative bg-white rounded-2xl p-6 lg:p-8 border border-navy/5 shadow-sm hover:shadow-xl hover:shadow-navy/5 transition-all duration-500"
+                variants={itemVariants}
+                className="group relative bg-white rounded-2xl p-6 lg:p-8 border border-navy/5 shadow-sm hover:shadow-xl hover:shadow-navy/5 hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Quote icon */}
                 <Quote className="w-10 h-10 text-gold/20 mb-6" />
@@ -95,9 +137,9 @@ export function SuccessStories() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Trust metrics */}
+        {/* Trust metrics banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -106,16 +148,41 @@ export function SuccessStories() {
           className="mt-16 p-8 sm:p-12 rounded-2xl bg-navy text-white"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {t.stories.metrics.map((metric, i) => (
-              <div key={i}>
-                <div className="text-3xl sm:text-4xl font-bold text-gold">
-                  {metric.value}
+            {t.stories.metrics.map((metric, i) => {
+              const config = metricConfigs[i];
+              const counterDisplay = getCounterDisplay(i);
+              return (
+                <div key={i}>
+                  <div className="text-3xl sm:text-4xl font-bold text-gold">
+                    {i === 1 ? (
+                      <>
+                        <AnimatedCounter
+                          end={config.end}
+                          duration={config.duration}
+                          prefix={counterDisplay}
+                          suffix={config.suffix}
+                        />
+                        {lang === "ar" && (
+                          <span className="text-lg mr-1 text-gold/70">
+                            {"مليار ريال"}
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <AnimatedCounter
+                        end={config.end}
+                        duration={config.duration}
+                        prefix={counterDisplay}
+                        suffix={config.suffix}
+                      />
+                    )}
+                  </div>
+                  <div className="mt-2 text-sm text-white/50">
+                    {metric.label}
+                  </div>
                 </div>
-                <div className="mt-2 text-sm text-white/50">
-                  {metric.label}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
       </div>

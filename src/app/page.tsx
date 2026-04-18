@@ -6,6 +6,7 @@ import { SuccessStories } from "@/components/law-firm/SuccessStories";
 import { LegalInsights } from "@/components/law-firm/LegalInsights";
 import { ContactSection } from "@/components/law-firm/ContactSection";
 import { Footer } from "@/components/law-firm/Footer";
+import { FloatingActions } from "@/components/law-firm/FloatingActions";
 import { LanguageProvider } from "@/components/law-firm/LanguageProvider";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
           <ContactSection />
         </main>
         <Footer />
+        <FloatingActions />
       </div>
     </LanguageProvider>
   );

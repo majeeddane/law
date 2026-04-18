@@ -9,11 +9,14 @@ import {
   Phone,
   MapPin,
   ArrowUpRight,
+  Mail,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
+  const isRTL = lang === "ar";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -26,7 +29,7 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-dark text-white">
-      {/* CTA Banner */}
+      {/* ── CTA Banner ─────────────────────────────────── */}
       <div className="bg-gradient-to-r from-navy via-navy-light to-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <motion.div
@@ -36,7 +39,12 @@ export function Footer() {
             transition={{ duration: 0.6 }}
             className="flex flex-col lg:flex-row items-center justify-between gap-8"
           >
-            <div className="text-center lg:text-left max-w-2xl">
+            <div
+              className={cn(
+                "text-center max-w-2xl",
+                isRTL ? "lg:text-right" : "lg:text-left"
+              )}
+            >
               <h3 className="text-2xl sm:text-3xl font-bold">
                 {t.footer.ctaTitle}
               </h3>
@@ -44,13 +52,17 @@ export function Footer() {
                 {t.footer.ctaSubtitle}
               </p>
             </div>
+
             <div className="flex flex-col sm:flex-row gap-4">
+              {/* Gold CTA */}
               <button
                 onClick={() => scrollTo("contact")}
                 className="bg-gold text-navy-dark hover:bg-gold-light font-semibold px-8 py-4 rounded-lg shadow-xl shadow-gold/20 transition-all duration-300 hover:scale-[1.02]"
               >
                 {t.footer.ctaBtn}
               </button>
+
+              {/* Outlined phone */}
               <a
                 href="tel:+966506707007"
                 className="border border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
@@ -63,10 +75,10 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Main footer */}
+      {/* ── Main footer ────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
-          {/* Brand column */}
+          {/* ── Brand column (spans 2) ─────────────────── */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
@@ -74,13 +86,14 @@ export function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-wide">
-                  {lang === "ar" ? "المسلم" : "AL-MUSALLAM"}
+                  {isRTL ? "المسلم" : "AL-MUSALLAM"}
                 </span>
                 <span className="text-xs text-gold/80 font-medium tracking-[0.15em] uppercase">
-                  {lang === "ar" ? "للمحاماة" : "Law Firm"}
+                  {isRTL ? "للمحاماة" : "Law Firm"}
                 </span>
               </div>
             </div>
+
             <p className="text-white/50 leading-relaxed max-w-sm text-sm">
               {t.footer.description}
             </p>
@@ -91,40 +104,14 @@ export function Footer() {
                 href="tel:+966506707007"
                 className="flex items-center gap-3 text-sm text-white/50 hover:text-gold transition-colors"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 flex-shrink-0" />
                 0506707007
               </a>
               <a
                 href="mailto:info@mohamalmusallam.com"
                 className="flex items-center gap-3 text-sm text-white/50 hover:text-gold transition-colors"
               >
-                {lang === "ar" ? (
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 fill-none stroke-current"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 fill-none stroke-current"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                )}
+                <Mail className="w-4 h-4 flex-shrink-0" />
                 info@mohamalmusallam.com
               </a>
               <div className="flex items-start gap-3 text-sm text-white/50">
@@ -157,7 +144,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
+          {/* ── Link columns (3) ───────────────────────── */}
           {Object.entries(t.footer.links).map(([title, links]) => (
             <div key={title}>
               <h4 className="font-semibold text-sm tracking-wide mb-5 text-white/80">
@@ -181,13 +168,11 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* ── Bottom bar ─────────────────────────────────── */}
       <Separator className="bg-white/5" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-white/30">
-            {t.footer.copyright}
-          </div>
+          <div className="text-xs text-white/30">{t.footer.copyright}</div>
           <div className="flex items-center gap-6">
             <a
               href="#"
@@ -205,11 +190,18 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Back to top */}
-      <button
+      {/* ── Back-to-top ────────────────────────────────── */}
+      <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-navy text-white shadow-xl shadow-navy/30 flex items-center justify-center hover:bg-gold hover:text-navy-dark transition-all duration-300 z-40 border border-white/10"
-        aria-label={lang === "ar" ? "العودة للأعلى" : "Back to top"}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className={cn(
+          "fixed bottom-6 w-12 h-12 rounded-full bg-navy text-white shadow-xl shadow-navy/30 flex items-center justify-center hover:bg-gold hover:text-navy-dark transition-colors duration-300 z-40 border border-white/10",
+          isRTL ? "left-6" : "right-6"
+        )}
+        aria-label={isRTL ? "العودة للأعلى" : "Back to top"}
       >
         <svg
           className="w-5 h-5"
@@ -224,7 +216,7 @@ export function Footer() {
             d="M5 15l7-7 7 7"
           />
         </svg>
-      </button>
+      </motion.button>
     </footer>
   );
 }
