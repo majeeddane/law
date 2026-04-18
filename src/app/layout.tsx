@@ -1,19 +1,6 @@
 import type { Metadata } from "next";
-import { Cairo } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-
-const cairo = Cairo({
-  variable: "--font-cairo",
-  subsets: ["arabic", "latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "مكتب المحامي محمد المسلم | التميّز القانوني في الرياض",
@@ -46,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body
-        className={`${cairo.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
-      >
+      <body className="antialiased bg-background text-foreground">
         {children}
         <Toaster />
       </body>
