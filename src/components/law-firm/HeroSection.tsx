@@ -144,7 +144,7 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               onClick={() => handleScrollTo("practice")}
-              className="border-white/20 text-white hover:bg-white/10 hover:text-white font-medium text-base px-8 py-6 rounded-lg transition-all duration-300"
+              className="border-white/30 text-white bg-transparent hover:bg-gold/10 hover:text-gold hover:border-gold/50 font-medium text-base px-8 py-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
             >
               {t.hero.ctaSecondary}
             </Button>

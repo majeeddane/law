@@ -18,7 +18,7 @@ interface MetricCounterConfig {
 
 const metricConfigs: MetricCounterConfig[] = [
   { end: 98, prefix: "", suffix: "%", duration: 2000 },
-  { end: 15, prefix: "", suffix: "B+", duration: 2500 },
+  { end: 500, prefix: "+", suffix: "", duration: 2500 },
   { end: 45, prefix: "", suffix: "+", duration: 2000 },
   { end: 12, prefix: "", suffix: "", duration: 1800 },
 ];
@@ -29,9 +29,9 @@ export function SuccessStories() {
 
   const getCounterDisplay = (i: number): string => {
     if (lang === "ar") {
-      return ["SAR ", "+", "+", ""][i];
+      return ["", "+", "+", ""][i];
     }
-    return ["", "SAR ", "+", ""][i];
+    return ["", "+", "+", ""][i];
   };
 
   const containerVariants = {
@@ -151,30 +151,21 @@ export function SuccessStories() {
             {t.stories.metrics.map((metric, i) => {
               const config = metricConfigs[i];
               const counterDisplay = getCounterDisplay(i);
+              
+              const isNumericValue = !isNaN(Number(metric.value.replace(/[^0-9]/g, '')));
+
               return (
                 <div key={i}>
                   <div className="text-3xl sm:text-4xl font-bold text-gold">
-                    {i === 1 ? (
-                      <>
-                        <AnimatedCounter
-                          end={config.end}
-                          duration={config.duration}
-                          prefix={counterDisplay}
-                          suffix={config.suffix}
-                        />
-                        {lang === "ar" && (
-                          <span className="text-lg mr-1 text-gold/70">
-                            {"مليار ريال"}
-                          </span>
-                        )}
-                      </>
-                    ) : (
+                    {isNumericValue ? (
                       <AnimatedCounter
                         end={config.end}
                         duration={config.duration}
                         prefix={counterDisplay}
                         suffix={config.suffix}
                       />
+                    ) : (
+                      <span>{metric.value}</span>
                     )}
                   </div>
                   <div className="mt-2 text-sm text-white/50">

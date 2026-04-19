@@ -114,33 +114,19 @@ export function Header() {
               e.preventDefault();
               handleNavClick("#home");
             }}
-            className="flex items-center gap-3 group"
+            className="flex items-center group relative h-full"
           >
             <div
               className={cn(
-                "rounded-lg bg-[#C8A96A]/10 border border-[#C8A96A]/25 flex items-center justify-center transition-all duration-500 group-hover:bg-[#C8A96A]/20 group-hover:border-[#C8A96A]/40",
-                scrolled ? "w-9 h-9 sm:w-10 sm:h-10" : "w-10 h-10 sm:w-12 sm:h-12"
+                "relative transition-all duration-500 transform group-hover:scale-105",
+                scrolled ? "h-10 sm:h-12 w-auto" : "h-14 sm:h-20 w-auto"
               )}
             >
-              <Scale
-                className={cn(
-                  "text-[#C8A96A] transition-all duration-500",
-                  scrolled ? "w-4.5 h-4.5 sm:w-5 sm:h-5" : "w-5 h-5 sm:w-6 sm:h-6"
-                )}
+              <img
+                src="/logo.png"
+                alt={isRTL ? "المسلم للمحاماة" : "Al-Musallam Law Firm"}
+                className="h-full w-auto object-contain filter drop-shadow-sm transition-all duration-300"
               />
-            </div>
-            <div className="flex flex-col">
-              <span
-                className={cn(
-                  "font-bold text-white tracking-wide leading-tight transition-all duration-500",
-                  scrolled ? "text-sm sm:text-[15px]" : "text-sm sm:text-base"
-                )}
-              >
-                {isRTL ? "المسلم" : "AL-MUSALLAM"}
-              </span>
-              <span className="text-[10px] sm:text-xs text-[#C8A96A]/80 font-medium tracking-[0.2em] transition-all duration-500">
-                {isRTL ? "للمحاماة" : "LAW FIRM"}
-              </span>
             </div>
           </a>
 

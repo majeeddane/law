@@ -235,7 +235,7 @@ const translations: Record<Lang, Translations> = {
       title1: "المحامي محمد",
       title2: "المسلم",
       bio1: "محامٍ متميّز يمتلك أكثر من عقدين من الخبرة في طليعة المشهد القانوني المتطور في المملكة العربية السعودية. أسّس المحامي محمد المسلم مكتبه على مبدأ أن الاستشارة القانونية الاستثنائية لا ينفصل عن النزاهة الشخصية.",
-      bio2: "مرخّص من وزارة العدل السعودية وعضو في هيئة المحامين السعودية، تمثّل بنجاح شركات من فورتشن 500 والجهات الحكومية والمؤسسات الخاصة في نزاعات تجارية معقدة ومعاملات بمليارات الريالات وقضايا تحكيم بارزة. فهمه العميق للشريعة الإسلامية والأطر التجارية الدولية جعله من أكثر المستشارين القانونيين طلباً في الرياض.",
+      bio2: "مرخّص من وزارة العدل السعودية وعضو في هيئة المحامين السعودية، تمثّل بنجاح شركات من فورتشن 500 والجهات الحكومية والمؤسسات الخاصة في نزاعات تجارية معقدة ومعاملات تجارية كبرى وعقود استراتيجية وقضايا تحكيم بارزة. فهمه العميق للشريعة الإسلامية والأطر التجارية الدولية جعله من أكثر المستشارين القانونيين طلباً في الرياض.",
       credentials: [
         { text: "بكالوريوس حقوق، جامعة الملك سعود" },
         { text: "ماجستير قانون تجاري دولي" },
@@ -243,7 +243,7 @@ const translations: Record<Lang, Translations> = {
         { text: "عضو هيئة المحامين السعودية" },
       ],
       achievements: [
-        "استشارات بمعاملات تجارية تتجاوز ١٥ مليار ريال",
+        "استشارات بمعاملات تجارية كبرى ومتنوعة",
         "أكثر من ٢٠٠ نزاع تم حله بنجاح",
         "معترف به ضمن Legal 500 الشرق الأوسط",
       ],
@@ -260,8 +260,8 @@ const translations: Record<Lang, Translations> = {
           name: "خالد الراشد",
           title: "الرئيس التنفيذي، مجموعة الراشد القابضة",
           quote:
-            "كانت الاستشارات الاستراتيجية لمكتب المسلم للمحاماة حاسمة في صفقة استحواذ بقيمة ملياري ريال. فهمهم للأطر التنظيمية السعودية وهياكل الصفقات الدولية لا مثيل له.",
-          case: "استحواذ مؤسسي بملياري ريال",
+            "كانت الاستشارات الاستراتيجية لمكتب المسلم للمحاماة حاسمة في صفقة استحواذ كبرى. فهمهم للأطر التنظيمية السعودية وهياكل الصفقات الدولية لا مثيل له.",
+          case: "استحواذ مؤسسي كبير",
         },
         {
           name: "سارة ميتشل",
@@ -280,7 +280,7 @@ const translations: Record<Lang, Translations> = {
       ],
       metrics: [
         { value: "٩٨٪", label: "رضا العملاء" },
-        { value: "+١٥ مليار ريال", label: "قيمة المعاملات" },
+        { value: "+٥٠٠", label: "استشارة كبرى" },
         { value: "+٤٥", label: "جائزة مهنية" },
         { value: "١٢", label: "دولة خليجية تمت خدمتها" },
       ],
@@ -453,7 +453,7 @@ const translations: Record<Lang, Translations> = {
         {
           title: "نتائج استثنائية",
           description:
-            "سجل حافل بحل النزاعات المعقدة والمعاملات ذات القيمة العالية التي تتجاوز مليارات الريالات.",
+            "سجل حافل بحل النزاعات المعقدة والمعاملات التجارية الكبرى التي تتطلب دقة مهنية عالية.",
         },
       ],
     },
@@ -562,7 +562,7 @@ const translations: Record<Lang, Translations> = {
       title1: "Mohammed",
       title2: "Al-Musallam",
       bio1: "A distinguished legal practitioner with over two decades of experience at the forefront of Saudi Arabia's evolving legal landscape. Mohammed Al-Musallam founded the firm on the principle that exceptional legal counsel must be inseparable from personal integrity.",
-      bio2: "Licensed by the Saudi Ministry of Justice and a member of the Saudi Bar Association, he has successfully represented Fortune 500 corporations, government entities, and private enterprises across complex commercial disputes, multi-billion riyal transactions, and landmark arbitration cases.",
+      bio2: "Licensed by the Saudi Ministry of Justice and a member of the Saudi Bar Association, he has successfully represented Fortune 500 corporations, government entities, and private enterprises across complex commercial disputes, high-value strategic transactions, and landmark arbitration cases.",
       credentials: [
         { text: "LL.B., King Saud University" },
         { text: "LL.M., International Commercial Law" },
@@ -570,7 +570,7 @@ const translations: Record<Lang, Translations> = {
         { text: "Saudi Bar Association Member" },
       ],
       achievements: [
-        "Advised on SAR 15B+ in corporate transactions",
+        "Advised on significant high-value corporate transactions",
         "Led 200+ successful dispute resolutions",
         "Recognized by Legal 500 Middle East",
       ],
@@ -587,8 +587,8 @@ const translations: Record<Lang, Translations> = {
           name: "Khalid Al-Rashid",
           title: "CEO, Al-Rashid Holdings",
           quote:
-            "Al-Musallam Law Firm's strategic counsel was instrumental in our SAR 2 billion acquisition. Their understanding of both Saudi regulatory frameworks and international deal structures is unmatched.",
-          case: "SAR 2B Corporate Acquisition",
+            "Al-Musallam Law Firm's strategic counsel was instrumental in our major corporate acquisition. Their understanding of both Saudi regulatory frameworks and international deal structures is unmatched.",
+          case: "Significant Corporate Acquisition",
         },
         {
           name: "Sarah Mitchell",
@@ -607,7 +607,7 @@ const translations: Record<Lang, Translations> = {
       ],
       metrics: [
         { value: "98%", label: "Client Satisfaction" },
-        { value: "SAR 15B+", label: "Transaction Value" },
+        { value: "500+", label: "Major Consultations" },
         { value: "45+", label: "Industry Awards" },
         { value: "12", label: "GCC Countries Served" },
       ],
@@ -785,7 +785,7 @@ const translations: Record<Lang, Translations> = {
         {
           title: "Exceptional Results",
           description:
-            "Track record of resolving complex disputes and high-value transactions worth billions of riyals.",
+            "Track record of resolving complex disputes and strategic high-value transactions.",
         },
       ],
     },

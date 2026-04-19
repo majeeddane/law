@@ -90,7 +90,7 @@ export function PracticeAreas() {
                         key={j}
                         className={cn(
                           "flex items-center gap-2 text-sm text-charcoal/70",
-                          isRTL && "flex-row-reverse text-right"
+                          isRTL && "text-right"
                         )}
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-gold/60 flex-shrink-0" />
