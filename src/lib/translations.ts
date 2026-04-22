@@ -128,6 +128,19 @@ export type Translations = {
       description: string;
     }[];
   };
+  legal: {
+    privacy: {
+      title: string;
+      lastUpdated: string;
+      sections: { title: string; content: string }[];
+    };
+    terms: {
+      title: string;
+      lastUpdated: string;
+      sections: { title: string; content: string }[];
+    };
+    backToHome: string;
+  };
 };
 
 const translations: Record<Lang, Translations> = {
@@ -456,6 +469,61 @@ const translations: Record<Lang, Translations> = {
             "سجل حافل بحل النزاعات المعقدة والمعاملات التجارية الكبرى التي تتطلب دقة مهنية عالية.",
         },
       ],
+    },
+    legal: {
+      privacy: {
+        title: "سياسة الخصوصية",
+        lastUpdated: "آخر تحديث: ٢٢ أبريل ٢٠٢٤",
+        sections: [
+          {
+            title: "١. مقدمة",
+            content: "يلتزم مكتب المحامي محمد المسلم بحماية خصوصيتك وبياناتك الشخصية. توضح هذه السياسة كيف نقوم بجمع واستخدام وحماية معلوماتك عند زيارة موقعنا الإلكتروني.",
+          },
+          {
+            title: "٢. جمع البيانات",
+            content: "نقوم بجمع المعلومات التي تقدمها لنا طواعية عبر نماذج الاتصال، بما في ذلك الاسم، ورقم الهاتف، والبريد الإلكتروني، وتفاصيل الاستشارة المطلوبة.",
+          },
+          {
+            title: "٣. استخدام المعلومات",
+            content: "تُستخدم البيانات المجموعة حصراً للتواصل معك بشأن استشاراتك القانونية، وتحسين جودة خدماتنا، والامتثال للمتطلبات التنظيمية المعمول بها في المملكة العربية السعودية.",
+          },
+          {
+            title: "٤. حماية البيانات",
+            content: "نطبق معايير أمنية تقنية وإدارية صارمة لحماية بياناتك من الوصول غير المصرح به أو الإفصاح أو التغيير، بما يتوافق مع نظام حماية البيانات الشخصية السعودي.",
+          },
+          {
+            title: "٥. حقوق العميل",
+            content: "يحق لك طلب الوصول إلى بياناتك الشخصية التي نحتفظ بها، أو تصحيحها، أو طلب مسحها بما لا يتعارض مع الأنظمة والتعليمات القضائية.",
+          },
+        ],
+      },
+      terms: {
+        title: "الشروط والأحكام",
+        lastUpdated: "آخر تحديث: ٢٢ أبريل ٢٠٢٤",
+        sections: [
+          {
+            title: "١. القبول بالشروط",
+            content: "باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الاستخدام الموضحة هنا. إذا كنت لا توافق على هذه الشروط، يرجى عدم استخدام الموقع.",
+          },
+          {
+            title: "٢. لا تُشكل علاقة محامٍ وموكل",
+            content: "المعلومات المقدمة في هذا الموقع هي لأغراض إعلامية عامة فقط ولا تشكل نصيحة قانونية. استخدام الموقع أو التواصل معنا لا ينشئ تلقائياً علاقة محامٍ وموكل.",
+          },
+          {
+            title: "٣. الملكية الفكرية",
+            content: "جميع المحتويات، والشعارات، والنصوص الموجودة في هذا الموقع هي ملكية حصرية لمكتب المحامي محمد المسلم ومحمية بموجب أنظمة حقوق الملكية الفكرية.",
+          },
+          {
+            title: "٤. حدود المسؤولية",
+            content: "لا يتحمل المكتب المسؤولية عن أي خسائر مباشرة أو غير مباشرة ناتجة عن استخدام الموقع أو الاعتماد على محتواه دون استشارة قانونية رسمية.",
+          },
+          {
+            title: "٥. القانون الواجب التطبيق",
+            content: "تخضع هذه الشروط والنزاعات الناشئة عنها للأنظمة المعمول بها في المملكة العربية السعودية، ويكون لمحاكم مدينة الرياض الاختصاص الحصري في النظر فيها.",
+          },
+        ],
+      },
+      backToHome: "العودة للرئيسية",
     },
   },
   en: {
@@ -788,6 +856,61 @@ const translations: Record<Lang, Translations> = {
             "Track record of resolving complex disputes and strategic high-value transactions.",
         },
       ],
+    },
+    legal: {
+      privacy: {
+        title: "Privacy Policy",
+        lastUpdated: "Last Updated: April 22, 2024",
+        sections: [
+          {
+            title: "1. Introduction",
+            content: "Mohammed Al-Musallam Law Firm is committed to protecting your privacy and personal data. This policy explains how we collect, use, and protect your information when visiting our website.",
+          },
+          {
+            title: "2. Data Collection",
+            content: "We collect information you voluntarily provide to us via contact forms, including name, phone number, email, and details of the requested consultation.",
+          },
+          {
+            title: "3. Use of Information",
+            content: "Collected data is used exclusively to contact you regarding your legal consultations, improve our service quality, and comply with regulatory requirements in the Kingdom of Saudi Arabia.",
+          },
+          {
+            title: "4. Data Security",
+            content: "We implement strict technical and administrative security standards to protect your data from unauthorized access, disclosure, or alteration, in compliance with the Saudi Personal Data Protection Law.",
+          },
+          {
+            title: "5. Client Rights",
+            content: "You have the right to request access to your personal data held by us, correct it, or request its deletion as long as it does not conflict with judicial regulations and instructions.",
+          },
+        ],
+      },
+      terms: {
+        title: "Terms of Service",
+        lastUpdated: "Last Updated: April 22, 2024",
+        sections: [
+          {
+            title: "1. Acceptance of Terms",
+            content: "By using this website, you agree to be bound by the terms of use described here. If you do not agree to these terms, please do not use the website.",
+          },
+          {
+            title: "2. No Attorney-Client Relationship",
+            content: "The information provided on this website is for general informational purposes only and does not constitute legal advice. Using the website or contacting us does not automatically create an attorney-client relationship.",
+          },
+          {
+            title: "3. Intellectual Property",
+            content: "All content, logos, and texts on this website are the exclusive property of Mohammed Al-Musallam Law Firm and are protected under intellectual property right laws.",
+          },
+          {
+            title: "4. Limitation of Liability",
+            content: "The firm shall not be liable for any direct or indirect losses resulting from using the website or relying on its content without formal legal consultation.",
+          },
+          {
+            title: "5. Governing Law",
+            content: "These terms and any disputes arising from them are subject to the laws in force in the Kingdom of Saudi Arabia, and the courts of Riyadh shall have exclusive jurisdiction over them.",
+          },
+        ],
+      },
+      backToHome: "Back to Home",
     },
   },
 };

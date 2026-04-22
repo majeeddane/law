@@ -12,6 +12,7 @@ import {
   Mail,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function Footer() {
   const { lang } = useLangStore();
@@ -179,18 +180,18 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-white/30">{t.footer.copyright}</div>
           <div className="flex items-center gap-6">
-            <a
-              href="#"
+            <Link
+              href="/privacy"
               className="text-xs text-white/30 hover:text-gold transition-colors"
             >
               {t.footer.privacy}
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/terms"
               className="text-xs text-white/30 hover:text-gold transition-colors"
             >
               {t.footer.terms}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
