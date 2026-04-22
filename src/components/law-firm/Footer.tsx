@@ -144,17 +144,29 @@ export function Footer() {
                 {title}
               </h4>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-white/40 hover:text-gold transition-colors inline-flex items-center gap-1 group"
-                    >
-                      {link}
-                      <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  // Map link names to section IDs
+                  let targetId = "";
+                  const l = link.toLowerCase();
+                  
+                  if (l.includes("about") || l.includes("عن المكتب") || l.includes("مؤسس")) targetId = "about";
+                  else if (l.includes("practice") || l.includes("مجالات") || l.includes("حوكمة") || l.includes("عقارات") || l.includes("نزاعات") || l.includes("شرعية") || l.includes("عقود") || l.includes("استثمار")) targetId = "practice";
+                  else if (l.includes("stories") || l.includes("شهادات") || l.includes("testimonials")) targetId = "stories";
+                  else if (l.includes("insights") || l.includes("الرؤى")) targetId = "insights";
+                  else if (l.includes("contact") || l.includes("اتصل") || l.includes("احجز") || l.includes("consultation")) targetId = "contact";
+
+                  return (
+                    <li key={link}>
+                      <button
+                        onClick={() => targetId ? scrollTo(targetId) : null}
+                        className="text-sm text-white/40 hover:text-gold transition-colors inline-flex items-center gap-1 group text-right"
+                      >
+                        {link}
+                        <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

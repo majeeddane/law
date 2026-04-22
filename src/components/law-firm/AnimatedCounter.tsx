@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 
 interface AnimatedCounterProps {
   end: number;
@@ -21,9 +21,14 @@ export function AnimatedCounter({
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [count, setCount] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView || !isMounted) return;
 
     let startTime: number;
     let animationFrame: number;
@@ -41,11 +46,14 @@ export function AnimatedCounter({
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, end, duration]);
+  }, [isInView, end, duration, isMounted]);
+
+  // Prevent hydration mismatch by using a simple number on server and localized on client
+  const displayCount = isMounted ? count.toLocaleString() : "0";
 
   return (
     <span ref={ref} className={className}>
-      {prefix}{count.toLocaleString()}{suffix}
+      {prefix}{displayCount}{suffix}
     </span>
   );
 }
