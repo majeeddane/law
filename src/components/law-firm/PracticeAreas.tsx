@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Building2,
   Home,
@@ -8,6 +9,7 @@ import {
   Scale,
   FileText,
   Briefcase,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLangStore } from "@/stores/language-store";
@@ -23,6 +25,11 @@ export function PracticeAreas() {
   const { lang } = useLangStore();
   const t = getTranslations(lang);
   const isRTL = lang === "ar";
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
+  const toggleCard = (index: number) => {
+    setActiveCard(activeCard === index ? null : index);
+  };
 
   return (
     <section id="practice" className="relative py-24 sm:py-32 bg-white">
@@ -60,26 +67,58 @@ export function PracticeAreas() {
         >
           {t.practice.areas.map((area, i) => {
             const Icon = practiceIcons[i];
+            const isExpanded = activeCard === i;
+
             return (
               <motion.div
                 key={i}
                 variants={staggerChild}
                 whileHover={{ y: -4 }}
+                onClick={() => toggleCard(i)}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="group relative rounded-2xl border border-navy/8 bg-white p-6 lg:p-8 transition-all duration-500 hover:border-gold/30 hover:shadow-xl hover:shadow-navy/5 cursor-default"
+                className={cn(
+                  "group relative rounded-2xl border bg-white p-6 lg:p-8 transition-all duration-500 hover:border-gold/30 hover:shadow-xl hover:shadow-navy/5 cursor-pointer select-none",
+                  isExpanded ? "border-gold/40 shadow-lg shadow-navy/5" : "border-navy/8"
+                )}
               >
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-navy/5 group-hover:bg-gold/10 flex items-center justify-center mb-6 transition-colors duration-300">
-                  <Icon className="w-7 h-7 text-navy group-hover:text-gold-dark transition-colors duration-300" />
+                {/* Header with Icon and Chevron */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className={cn(
+                    "w-14 h-14 rounded-xl flex items-center justify-center transition-colors duration-300",
+                    isExpanded ? "bg-gold/15" : "bg-navy/5 group-hover:bg-gold/10"
+                  )}>
+                    <Icon className={cn(
+                      "w-7 h-7 transition-colors duration-300",
+                      isExpanded ? "text-gold-dark" : "text-navy group-hover:text-gold-dark"
+                    )} />
+                  </div>
+                  
+                  {/* Chevron indicator for mobile/hint */}
+                  <div className={cn(
+                    "w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100",
+                    isExpanded ? "border-gold bg-gold text-white rotate-180" : "border-navy/10 text-navy/30"
+                  )}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
                 </div>
 
                 {/* Title */}
                 <h3 className="text-xl font-bold text-navy">{area.title}</h3>
 
-                {/* Hover-reveal description + highlights */}
-                <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                {/* Read more hint (visible on mobile only) */}
+                {!isExpanded && (
+                  <span className="inline-block mt-3 text-xs font-semibold text-gold-dark/60 lg:hidden uppercase tracking-wider">
+                    {lang === 'ar' ? 'عرض التفاصيل' : 'View Details'}
+                  </span>
+                )}
+
+                {/* Content - Expands on hover (desktop) or click (mobile) */}
+                <div className={cn(
+                  "overflow-hidden transition-all duration-500 ease-in-out",
+                  isExpanded ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0 lg:group-hover:max-h-96 lg:group-hover:opacity-100 lg:group-hover:mt-4"
+                )}>
                   {/* Description */}
-                  <p className="mt-3 text-muted-foreground leading-relaxed text-[15px]">
+                  <p className="text-muted-foreground leading-relaxed text-[15px]">
                     {area.description}
                   </p>
 
