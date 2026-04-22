@@ -152,9 +152,13 @@
     @apply bg-background text-foreground;
     font-family: 'SFProARText', 'SFProAR', system-ui, sans-serif;
     line-height: 1.75;
+    overflow-x: hidden;
+    width: 100%;
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
   }
   /* All headings use Display font */
   h1, h2, h3, h4, h5, h6 {

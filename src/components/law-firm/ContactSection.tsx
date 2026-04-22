@@ -155,12 +155,12 @@ export function ContactSection() {
                     {info.href && j === 0 ? (
                       <a
                         href={info.href}
-                        className="text-sm text-muted-foreground hover:text-gold-dark transition-colors"
+                        className="text-sm text-muted-foreground hover:text-gold-dark transition-colors break-all"
                       >
                         {line}
                       </a>
                     ) : (
-                      <div className="text-sm text-muted-foreground">{line}</div>
+                      <div className="text-sm text-muted-foreground break-words">{line}</div>
                     )}
                   </div>
                 ))}
