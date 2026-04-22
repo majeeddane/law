@@ -106,9 +106,9 @@ function CareersContent() {
                 className="relative aspect-square md:aspect-video lg:aspect-square rounded-3xl overflow-hidden shadow-2xl"
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80" 
-                  alt="Office Environment"
-                  className="w-full h-full object-cover"
+                  src="/images/founder-portrait.png" 
+                  alt={isRTL ? "مؤسس المكتب" : "Firm Founder"}
+                  className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-navy/20" />
               </motion.div>
