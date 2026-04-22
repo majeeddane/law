@@ -282,7 +282,7 @@ const translations: Record<Lang, Translations> = {
         { value: "٩٨٪", label: "رضا العملاء" },
         { value: "+٥٠٠", label: "استشارة كبرى" },
         { value: "+٤٥", label: "جائزة مهنية" },
-        { value: "١٢", label: "دولة خليجية تمت خدمتها" },
+        { value: "١٢", label: "اختصاص قضائي دولي" },
       ],
     },
     insights: {
@@ -609,7 +609,7 @@ const translations: Record<Lang, Translations> = {
         { value: "98%", label: "Client Satisfaction" },
         { value: "500+", label: "Major Consultations" },
         { value: "45+", label: "Industry Awards" },
-        { value: "12", label: "GCC Countries Served" },
+        { value: "12", label: "International Jurisdictions" },
       ],
     },
     insights: {
