@@ -9,27 +9,29 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Menu, Scale, Phone, MapPin, Languages } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useLangStore } from "@/stores/language-store";
-import { getTranslations } from "@/lib/translations";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export function Header() {
   const { lang, toggleLang } = useLangStore();
   const t = getTranslations(lang);
   const isRTL = lang === "ar";
+  const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  const isHome = pathname === "/" || pathname === "/ar" || pathname === "/en";
+
   const navLinks = [
-    { label: t.nav.home, href: "#home" },
-    { label: t.nav.practice, href: "#practice" },
-    { label: t.nav.about, href: "#about" },
-    { label: t.nav.stories, href: "#stories" },
-    { label: t.nav.insights, href: "#insights" },
+    { label: t.nav.home, href: isHome ? "#home" : "/#home" },
+    { label: t.nav.practice, href: isHome ? "#practice" : "/#practice" },
+    { label: t.nav.about, href: isHome ? "#about" : "/#about" },
+    { label: t.nav.stories, href: isHome ? "#stories" : "/#stories" },
+    { label: t.nav.insights, href: isHome ? "#insights" : "/#insights" },
     { label: t.nav.careers, href: "/careers" },
-    { label: t.nav.contact, href: "#contact" },
+    { label: t.nav.contact, href: isHome ? "#contact" : "/#contact" },
   ];
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export function Header() {
       setScrolled(window.scrollY > 50);
 
       const sectionIds = navLinks
-        .filter(link => link.href.startsWith("#"))
-        .map((link) => link.href.slice(1));
+        .filter(link => link.href.includes("#"))
+        .map((link) => link.href.split("#")[1]);
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
@@ -53,17 +55,26 @@ export function Header() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lang]);
+  }, [lang, pathname]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    
     if (href.startsWith("#")) {
       const el = document.querySelector(href);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       }
+    } else if (href.startsWith("/#")) {
+      const id = href.split("#")[1];
+      if (isHome) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        router.push(href);
+      }
     } else {
-      window.location.href = href;
+      router.push(href);
     }
   };
 
@@ -72,7 +83,7 @@ export function Header() {
       dir={isRTL ? "rtl" : "ltr"}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
+        (scrolled || !isHome)
           ? "bg-[#0A1F3D]/95 backdrop-blur-xl backdrop-saturate-150 shadow-lg shadow-black/20"
           : "bg-transparent"
       )}
