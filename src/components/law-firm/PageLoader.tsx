@@ -47,50 +47,22 @@ export function PageLoader() {
             }}
           />
 
-          {/* Scale icon animation */}
+          {/* Official Logo animation */}
           <motion.div
-            initial={{ scale: 0, opacity: 0, rotate: -180 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{
-              duration: 0.8,
+              duration: 1,
               ease: [0.16, 1, 0.3, 1],
             }}
+            className="relative z-10"
           >
-            <Scale
-              size={72}
-              strokeWidth={1.2}
-              className="text-gold"
-              style={{ color: "#C8A96A" }}
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="h-32 md:h-48 w-auto object-contain filter drop-shadow-2xl"
             />
           </motion.div>
-
-          {/* Gold divider line */}
-          <motion.div
-            className="mt-6 mb-5"
-            style={{
-              width: 48,
-              height: 2,
-              background: "linear-gradient(90deg, transparent, #C8A96A, transparent)",
-              borderRadius: 1,
-            }}
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          />
-
-          {/* Firm name */}
-          <motion.h2
-            className="text-2xl md:text-3xl font-semibold tracking-wide"
-            style={{
-              color: "#C8A96A",
-              fontFamily: "'SFProARDisplay', 'SFProAR', system-ui, sans-serif",
-            }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-          >
-            المسلم للمحاماة
-          </motion.h2>
 
           {/* Subtle pulsing ring */}
           <motion.div
