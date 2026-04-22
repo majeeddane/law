@@ -28,6 +28,7 @@ export function Header() {
     { label: t.nav.about, href: "#about" },
     { label: t.nav.stories, href: "#stories" },
     { label: t.nav.insights, href: "#insights" },
+    { label: t.nav.careers, href: "/careers" },
     { label: t.nav.contact, href: "#contact" },
   ];
 
@@ -35,7 +36,10 @@ export function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sectionIds = navLinks.map((link) => link.href.slice(1));
+      const sectionIds = navLinks
+        .filter(link => link.href.startsWith("#"))
+        .map((link) => link.href.slice(1));
+
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (el) {
@@ -53,9 +57,13 @@ export function Header() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.href = href;
     }
   };
 

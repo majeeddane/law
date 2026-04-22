@@ -141,6 +141,30 @@ export type Translations = {
     };
     backToHome: string;
   };
+  careers: {
+    label: string;
+    title: string;
+    subtitle: string;
+    whyJoin: {
+      title: string;
+      description: string;
+      features: { title: string; description: string }[];
+    };
+    positions: {
+      title: string;
+      items: {
+        title: string;
+        type: string;
+        location: string;
+        description: string;
+      }[];
+    };
+    cta: {
+      title: string;
+      subtitle: string;
+      btn: string;
+    };
+  };
 };
 
 const translations: Record<Lang, Translations> = {
@@ -152,6 +176,7 @@ const translations: Record<Lang, Translations> = {
       stories: "قصص النجاح",
       insights: "الرؤى القانونية",
       contact: "اتصل بنا",
+      careers: "التوظيف",
       cta: "احجز استشارة",
       mobileNav: "القائمة",
     },
@@ -525,6 +550,42 @@ const translations: Record<Lang, Translations> = {
       },
       backToHome: "العودة للرئيسية",
     },
+    careers: {
+      label: "انضم إلينا",
+      title: "ابنِ مستقبلك المهني مع رواد القانون",
+      subtitle: "نبحث دائماً عن الكفاءات القانونية التي تشاركنا شغف التميّز والنزاهة والابتكار في تقديم الحلول القانونية.",
+      whyJoin: {
+        title: "لماذا تنضم لمكتب المسلم؟",
+        description: "نوفر بيئة عمل مهنية تحفز على التطور المستمر، حيث نقدر الخبرات ونمكن المواهب الشابة من خلال العمل على قضايا وتحديات كبرى.",
+        features: [
+          { title: "بيئة عمل محفزة", description: "ثقافة مبنية على التعاون المتبادل والنزاهة المهنية المطلقة." },
+          { title: "تطوير مستمر", description: "برامج تدريبية متواصلة لمواكبة أحدث التطورات في الأنظمة السعودية والدولية." },
+          { title: "مشاريع كبرى", description: "فرصة العمل مع نخبة من كبار العملاء والشركات الرائدة في المنطقة." }
+        ]
+      },
+      positions: {
+        title: "الوظائف المتاحة حالياً",
+        items: [
+          {
+            title: "مستشار قانوني أول",
+            type: "دوام كامل",
+            location: "الرياض",
+            description: "خبرة لا تقل عن ١٠ سنوات في قانون الشركات والمنازعات التجارية."
+          },
+          {
+            title: "باحث قانوني",
+            type: "دوام كامل",
+            location: "الرياض",
+            description: "شغف بالبحث القانوني وإعداد المذكرات وصياغة العقود بدقة عالية."
+          }
+        ]
+      },
+      cta: {
+        title: "لم تجد الوظيفة المناسبة؟",
+        subtitle: "أرسل سيرتك الذاتية وسنقوم بالتواصل معك عند توفر فرصة تتناسب مع خبراتك.",
+        btn: "تقديم طلب عام"
+      }
+    },
   },
   en: {
     nav: {
@@ -534,6 +595,7 @@ const translations: Record<Lang, Translations> = {
       stories: "Success Stories",
       insights: "Insights",
       contact: "Contact",
+      careers: "Careers",
       cta: "Book Consultation",
       mobileNav: "Menu",
     },
@@ -911,6 +973,42 @@ const translations: Record<Lang, Translations> = {
         ],
       },
       backToHome: "Back to Home",
+    },
+    careers: {
+      label: "Join Us",
+      title: "Build Your Career with Legal Leaders",
+      subtitle: "We are always looking for legal talents who share our passion for excellence, integrity, and innovation in providing legal solutions.",
+      whyJoin: {
+        title: "Why Join Al-Musallam Law Firm?",
+        description: "We provide a professional work environment that stimulates continuous development, where we value expertise and empower young talents by working on major cases and challenges.",
+        features: [
+          { title: "Motivating Environment", description: "A culture built on mutual cooperation and absolute professional integrity." },
+          { title: "Continuous Development", description: "Continuous training programs to keep pace with the latest developments in Saudi and international regulations." },
+          { title: "Major Projects", description: "Opportunity to work with a group of top clients and leading companies in the region." }
+        ]
+      },
+      positions: {
+        title: "Currently Available Positions",
+        items: [
+          {
+            title: "Senior Legal Consultant",
+            type: "Full Time",
+            location: "Riyadh",
+            description: "Minimum 10 years of experience in corporate law and commercial disputes."
+          },
+          {
+            title: "Legal Researcher",
+            type: "Full Time",
+            location: "Riyadh",
+            description: "Passion for legal research, preparing memos, and drafting contracts with high accuracy."
+          }
+        ]
+      },
+      cta: {
+        title: "Didn't find the right job?",
+        subtitle: "Send your CV and we will contact you when an opportunity matching your experience becomes available.",
+        btn: "General Application"
+      }
     },
   },
 };

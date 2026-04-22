@@ -151,6 +151,7 @@ export function Footer() {
                   const l = link.toLowerCase();
                   
                   if (l.includes("about") || l.includes("عن المكتب") || l.includes("مؤسس")) targetId = "about";
+                  else if (l.includes("careers") || l.includes("توظيف")) targetId = "/careers";
                   else if (l.includes("practice") || l.includes("مجالات") || l.includes("حوكمة") || l.includes("عقارات") || l.includes("نزاعات") || l.includes("شرعية") || l.includes("عقود") || l.includes("استثمار")) targetId = "practice";
                   else if (l.includes("stories") || l.includes("شهادات") || l.includes("testimonials")) targetId = "stories";
                   else if (l.includes("insights") || l.includes("الرؤى")) targetId = "insights";
