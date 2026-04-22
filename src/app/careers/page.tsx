@@ -163,9 +163,12 @@ function CareersContent() {
                       </p>
                     </div>
                     
-                    <button className="bg-navy text-white px-8 py-3 rounded-lg font-bold hover:bg-gold hover:text-navy transition-all duration-300 group-hover:shadow-lg group-hover:shadow-gold/20">
+                    <a 
+                      href="mailto:careers@mohamalmusallam.com"
+                      className="bg-navy text-white px-8 py-3 rounded-lg font-bold hover:bg-gold hover:text-navy transition-all duration-300 group-hover:shadow-lg group-hover:shadow-gold/20"
+                    >
                       {isRTL ? "قدم الآن" : "Apply Now"}
-                    </button>
+                    </a>
                   </div>
                 </motion.div>
               ))}
