@@ -77,18 +77,18 @@ export function AboutFounder() {
               </div>
 
               {/* Floating glass badge with years counter */}
-              <div className="absolute -bottom-5 right-0 lg:-right-6">
-                <div className="glass rounded-2xl px-5 py-4 shadow-xl">
-                  <div className="flex items-center gap-3">
+              <div className="absolute -bottom-6 right-4 lg:-right-6 z-20">
+                <div className="glass rounded-2xl px-6 py-4 shadow-2xl border border-white/10 bg-[#0A1F3D]/60 backdrop-blur-md">
+                  <div className="flex items-center gap-4">
                     <div className="flex flex-col">
-                      <span className="text-3xl font-bold text-white tracking-tight">
+                      <span className="text-3xl font-bold text-white tracking-tight leading-none">
                         <AnimatedCounter end={25} duration={2000} suffix="+" />
                       </span>
-                      <span className="text-[11px] text-gold/80 font-medium mt-0.5">
+                      <span className="text-xs text-gold font-medium mt-1 whitespace-nowrap">
                         {t.about.yearsLabel}
                       </span>
                     </div>
-                    <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center ml-1">
+                    <div className="w-10 h-10 rounded-xl bg-gold/15 flex items-center justify-center shrink-0">
                       <Award className="w-5 h-5 text-gold" />
                     </div>
                   </div>
