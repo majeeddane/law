@@ -106,7 +106,7 @@ function CareersContent() {
                 className="relative aspect-square md:aspect-video lg:aspect-square rounded-3xl overflow-hidden shadow-2xl"
               >
                 <img 
-                  src="/images/careers-portrait.jpg" 
+                  src="/images/careers-portrait.png" 
                   alt={isRTL ? "فريق العمل" : "Our Team"}
                   className="w-full h-full object-cover object-top"
                 />
