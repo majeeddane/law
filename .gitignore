@@ -58,3 +58,10 @@ db/*.db
 .env
 .env.local
 .next/
+
+# Large design source assets and documents
+*.psd
+*.ai
+*.pptx
+*.docx
+/public/images/تصاميم شركة قرين  بروجيكتس/
